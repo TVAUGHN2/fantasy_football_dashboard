@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<title>ff.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="ff-light-grey">
+
+<!-- Top container -->
+<div class="ff-bar ff-top ff-teal ff-large" style="z-index:4">
+  <button class="ff-bar-item ff-button ff-hover-none ff-hover-text-light-grey" onclick="ff_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="ff-bar-item ff-right"><b><i class="fa fa-dashboard"></i> Draft Dashboard</b></span>
+  
+</div>
+
+
+<!-- Sidebar/menu -->
+<nav class="ff-sidebar ff-collapse ff-teal ff-animate-left" style="z-index:3;width:200px;" id="mySidebar"><br>
+  <div class="ff-container">
+    <i class="fa fa-users fa-fw"></i>
+    Player List
+  </div>
+  <div class="ff-player-margin"><app-player-list></app-player-list></div>
+    
+</nav>
+
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="ff-overlay ff-hide-large ff-animate-opacity" onclick="ff_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+
+<div class="ff-main ff-blue-soft" style="margin-left:200px;margin-top:43px;">
+  <div class="ff-margin ff-new-container">
+    <div class="ff-margin-bottom">
+        <app-feature-blocks></app-feature-blocks>
+    </div>
+    <div>
+        <app-bye-week></app-bye-week>
+    </div>   
+  </div>
+
+  <div style="margin-left:120px">
+    <!-- Header -->
+    <div class="ff-margin-top"></div>
+    <div class="ff-panel">
+      <div class="ff-row-padding" style="margin:0 -16px">
+        <div class="ff-twothird">
+            <app-all-draft-table></app-all-draft-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <!--
+  <div class="ff-container">
+    <h5>General Stats</h5>
+    <p>New Visitors</p>
+    <div class="ff-grey">
+      <div class="ff-container ff-center ff-padding ff-green" style="width:25%">+25%</div>
+    </div>
+
+    <p>New Users</p>
+    <div class="ff-grey">
+      <div class="ff-container ff-center ff-padding ff-orange" style="width:50%">50%</div>
+    </div>
+
+    <p>Bounce Rate</p>
+    <div class="ff-grey">
+      <div class="ff-container ff-center ff-padding ff-red" style="width:75%">75%</div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="ff-container">
+    <h5>Countries</h5>
+    <table class="ff-table ff-striped ff-bordered ff-border ff-hoverable ff-white">
+      <tr>
+        <td>United States</td>
+        <td>65%</td>
+      </tr>
+      <tr>
+        <td>UK</td>
+        <td>15.7%</td>
+      </tr>
+      <tr>
+        <td>Russia</td>
+        <td>5.6%</td>
+      </tr>
+      <tr>
+        <td>Spain</td>
+        <td>2.1%</td>
+      </tr>
+      <tr>
+        <td>India</td>
+        <td>1.9%</td>
+      </tr>
+      <tr>
+        <td>France</td>
+        <td>1.5%</td>
+      </tr>
+    </table><br>
+    <button class="ff-button ff-dark-grey">More Countries  <i class="fa fa-arrow-right"></i></button>
+  </div>
+  <hr>
+  <div class="ff-container">
+    <h5>Recent Users</h5>
+    <ul class="ff-ul ff-card-4 ff-white">
+      <li class="ff-padding-16">
+        <img src="/ffimages/avatar2.png" class="ff-left ff-circle ff-margin-right" style="width:35px">
+        <span class="ff-xlarge">Mike</span><br>
+      </li>
+      <li class="ff-padding-16">
+        <img src="/ffimages/avatar5.png" class="ff-left ff-circle ff-margin-right" style="width:35px">
+        <span class="ff-xlarge">Jill</span><br>
+      </li>
+      <li class="ff-padding-16">
+        <img src="/ffimages/avatar6.png" class="ff-left ff-circle ff-margin-right" style="width:35px">
+        <span class="ff-xlarge">Jane</span><br>
+      </li>
+    </ul>
+  </div>
+  <hr>
+
+  <div class="ff-container">
+    <h5>Recent Comments</h5>
+    <div class="ff-row">
+      <div class="ff-col m2 text-center">
+        <img class="ff-circle" src="/ffimages/avatar3.png" style="width:96px;height:96px">
+      </div>
+      <div class="ff-col m10 ff-container">
+        <h4>John <span class="ff-opacity ff-medium">Sep 29, 2014, 9:12 PM</span></h4>
+        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+      </div>
+    </div>
+
+    <div class="ff-row">
+      <div class="ff-col m2 text-center">
+        <img class="ff-circle" src="/ffimages/avatar1.png" style="width:96px;height:96px">
+      </div>
+      <div class="ff-col m10 ff-container">
+        <h4>Bo <span class="ff-opacity ff-medium">Sep 28, 2014, 10:15 PM</span></h4>
+        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="ff-container ff-dark-grey ff-padding-32">
+    <div class="ff-row">
+      <div class="ff-container ff-third">
+        <h5 class="ff-bottombar ff-border-green">Demographic</h5>
+        <p>Language</p>
+        <p>Country</p>
+        <p>City</p>
+      </div>
+      <div class="ff-container ff-third">
+        <h5 class="ff-bottombar ff-border-red">System</h5>
+        <p>Browser</p>
+        <p>OS</p>
+        <p>More</p>
+      </div>
+      <div class="ff-container ff-third">
+        <h5 class="ff-bottombar ff-border-orange">Target</h5>
+        <p>Users</p>
+        <p>Active</p>
+        <p>Geo</p>
+        <p>Interests</p>
+      </div>
+    </div>
+  </div>
+-->
+
+  <!-- Footer -->
+  <!--
+  <footer class="ff-container ff-padding-16 ff-light-grey">
+    <h4>FOOTER</h4>
+    <p>Powered by <a href="https://www.ffschools.com/ffcss/default.asp" target="_blank">ff.css</a></p>
+  </footer>
+  -->
+  <!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function ff_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function ff_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
