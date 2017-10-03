@@ -232,6 +232,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .ff-yellow,.ff-hover-yellow:hover{color:#000!important;background-color:#ffeb3b!important}
 .ff-white,.ff-hover-white:hover{color:#000!important;background-color:#fff!important}
 .ff-black,.ff-hover-black:hover{color:#fff!important;background-color:#000!important}
+.ff-grey-cream,.ff-gray-cream,.ff-grey-cream-hover:hover,.ff-gray-cream-hover:hover{color:#343c3e!important;background-color:#ababab!important}
 .ff-grey,.ff-hover-grey:hover,.ff-gray,.ff-hover-gray:hover{color:#000!important;background-color:#bbb!important}
 .ff-light-grey,.ff-hover-light-grey:hover,.ff-light-gray,.ff-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}
 .ff-dark-grey,.ff-hover-dark-grey:hover,.ff-dark-gray,.ff-hover-dark-gray:hover{color:#fff!important;background-color:#616161!important}
@@ -295,3 +296,25 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     text-align: center;
 }
 
+
+.ff-player-list{
+    width: 100%;
+    border-style: solid;
+    border-width: thin;
+    border-color: #fff;
+}
+.ff-player-list-field{
+    font-size: 12px;
+    width: 25%;
+    text-align: center;
+}
+
+.ff-player-list-selection{
+    font-size: 12px;
+    width: 75%;
+    border-left-style:solid;
+    border-left-width:thin;
+    border-left-color:#fff;
+    align-content: right;
+    text-align: right;
+}
