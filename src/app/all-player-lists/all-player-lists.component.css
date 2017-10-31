@@ -1,0 +1,86 @@
+/* Colors */
+.ff-teal,.ff-hover-teal:hover{color:#fff!important; font-weight: bold!important; background-color:#009688!important}
+.ff-pale-turqoise, .ff-hover-pale-turqoise:hover{color:#000!important; font-weight: bold!important; background-color:#AFEEEE!important}
+.ff-white,.ff-hover-white:hover{color:#484c4d!important;background-color:#fff!important}
+.ff-blue-gray{color:#fff!important;background-color:#5F9EA0!important}
+.ff-light-grey,.ff-hover-light-grey:hover,.ff-light-gray,.ff-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}
+.ff-blue-soft,.ff-blue-soft-hover:hover{color:#747576!important;background-color:#dff7ff!important}
+
+
+
+
+
+.ff-container{
+    margin-left: 20px;
+    width: 300px;
+}
+
+.list{
+    margin: 5px;
+}
+.container {
+    display: inline-flex; /* or inline-flex */
+  }
+
+  /* Dropdown Button */
+  .dropbtn {
+      background-color: white;
+      font-size: 10px;
+      color: #444444;
+      cursor: pointer;
+      border-radius: 25px;
+      margin-left: 200px;
+      border-color: white;
+      position: relative;
+
+      
+  }
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus {
+      background-color: #AFEEEE;
+      border-radius: 25px;
+      
+      color: #444444;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+      position: relative;
+      display: inline-block;
+      
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+      display: none;
+      position: fixed;
+      background-color: #f9f9f9;
+      margin-left: 200px;
+     
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+      color: #444444;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+      background-color: #AFEEEE;
+      color: #444444;
+    }
+  
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
+  
+
+
+
+  
+  

@@ -1,0 +1,18 @@
+<body>
+  <div id='cssmenu'>
+  <ul>
+      <li><a [routerLink]= "['/dashboard']">Dashboard</a></li>
+      <li><a [routerLink]="['/playerlist']">Player Lists</a></li>
+      <li><a [routerLink]="['/draftrounds']">Draft Rounds</a></li>
+      <li><a [routerLink]="['/faqs']">FAQs<i class="fa fa-question-circle ff-right"></i></a></li>
+  </ul>
+  </div>
+  
+</body>
+  
+  
+<div id= "content">
+  <div class="container">
+    <router-outlet></router-outlet>  
+  </div>
+</div>

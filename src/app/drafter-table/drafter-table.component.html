@@ -1,7 +1,7 @@
 
 <div class="ff-drafter-name ff-teal"> 
     <i class="fa fa-user fa-fw ff-text-white ff-large "></i>
-    Travis Vaughn
+    {{ drafter.name }}
 </div>
 <div class="ff-drafter-container">
 <table table-layout: fixed class="ff-position-count">
@@ -12,10 +12,10 @@
       <th class="ff-position-right-border">TE</th>
     </tr>
     <tr class="ff-light-gray">
-      <th class="ff-position-right-border">0</th>
-      <th class="ff-position-right-border">16</th>
-      <th class="ff-position-right-border">0</th>
-      <th class="ff-position-right-border">0</th>
+      <th class="ff-position-right-border">{{ drafter.getPostionCount("QB") }}</th>
+      <th class="ff-position-right-border">{{ drafter.getPostionCount("RB") }}</th>
+      <th class="ff-position-right-border">{{ drafter.getPostionCount("WR") }}</th>
+      <th class="ff-position-right-border">{{ drafter.getPostionCount("TE") }}</th>
     </tr> 
 </table>
 
@@ -27,101 +27,11 @@
       <th>Position</th>
       <th>Bye Week</th>
     </tr>
-    <tr>
-      <td>1.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>2.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>3.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>4.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>5.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>6.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>7.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>8.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>9.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>10.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>11.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>12.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>13.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>14.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>15.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
-    </tr>
-    <tr>
-      <td>16.</td>
-      <td>Dalvin Cook</td>
-      <td><i>RB</i></td>
-      <td><i>6</i></td>
+    <tr *ngFor="let pick of drafter.picks">
+      <td>{{ pick.pickNum }}</td>
+      <td>{{ pick.name }}</td>
+      <td><i>{{ pick.position }}</i></td>
+      <td><i>{{ pick.bye }}</i></td>
     </tr>
   </table>
 </div>

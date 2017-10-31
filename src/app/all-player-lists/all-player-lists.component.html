@@ -1,0 +1,31 @@
+<nav class="ff-teal ff-container" ><br>
+  
+<div>
+  <div class="container dropdown">
+    
+  <button (click)="displayOptions()" class="dropbtn">Select Rankings</button>
+    <div id="myDropdown" class="dropdown-content">
+      <a (click)="getRanking('OVERALL')">Overall</a>
+      <a (click)="getRanking('RB')">RB</a>
+      <a (click)="getRanking('WR')">WR</a>
+      <a (click)="getRanking('TE')">TE</a>
+      <a (click)="getRanking('DEF')">DEF</a>
+      <a (click)="getRanking('K')">K</a>
+    </div>
+    <div>
+        <i class="fa fa-users fa-fw"></i>
+        Player List {{ ranking.type }}
+    </div> 
+     
+    </div>  
+    <div class="list">
+      <app-player-list [rankings]="ranking.ranking" [type]="ranking.type"></app-player-list>
+    </div>
+</div>
+</nav>
+
+<!--
+<div class="container" *ngFor="let ranking of rankings">
+    <app-player-list [rankings]="ranking.ranking" [type]="ranking.type"></app-player-list>
+</div>
+-->

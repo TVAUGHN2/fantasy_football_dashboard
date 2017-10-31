@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Drafter } from '../data.model';
 
 @Component({
   selector: 'app-drafter-table',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./drafter-table.component.css']
 })
 export class DrafterTableComponent implements OnInit {
+  
+  @Input() drafter: Drafter;
 
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit() {
   }

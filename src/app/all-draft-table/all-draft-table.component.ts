@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Drafter } from '../data.model';
 
 @Component({
   selector: 'app-all-draft-table',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllDraftTableComponent implements OnInit {
 
-  constructor() { }
+  @Input() drafters: Drafter[];
+  
+  constructor() { 
+  }
 
+  
   ngOnInit() {
   }
 
+  
 }
+
+
+
