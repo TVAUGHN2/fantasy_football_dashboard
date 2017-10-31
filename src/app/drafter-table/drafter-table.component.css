@@ -13,7 +13,7 @@
 .ff-table-all tr:nth-child(odd){background-color:#fff}
 .ff-table-all tr:nth-child(even){background-color:#f1f1f1}
 .ff-hoverable tbody tr:hover,.ff-ul.ff-hoverable li:hover{background-color:#ccc}
-.ff-centered tr th,.ff-centered tr td{text-align:center}
+.ff-centered tr th,.ff-centered tr td{text-align:center; align-content: center;}
 .ff-table td,.ff-table th,.ff-table-all td,.ff-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
 .ff-table th:first-child,.ff-table td:first-child,.ff-table-all th:first-child,.ff-table-all td:first-child{padding-left:16px}
 /* End draft table*/
@@ -34,11 +34,13 @@
     border-color: #fff; 
 }
 
-.ff-drafter-name {
-    width: 100%;
-}
+
 .ff-drafter-container{
     border-style: solid;
     border-width: medium;
     border-color: #009688;
+    width: 250px;
+    font-size: 12px;
+    width: 100%;
 }
+

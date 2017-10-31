@@ -17,7 +17,10 @@
         Player List {{ ranking.type }}
     </div> 
      
-    </div>  
+    </div>
+    <div class="list" *ngIf="ranking.type == ''">
+        <app-player-list [rankings]="getRanking('OVERALL')" [type]="ranking.type"></app-player-list>
+    </div>
     <div class="list">
       <app-player-list [rankings]="ranking.ranking" [type]="ranking.type"></app-player-list>
     </div>
