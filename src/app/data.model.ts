@@ -11,29 +11,29 @@ export class Drafter{
         this.draftPosition = dp;
         this.isProfile = ip;
         this.picks = [
-            {pickNum: 1, name: "", position: "", bye: ""},
-            {pickNum: 2, name: "", position: "", bye: ""},
-            {pickNum: 3, name: "", position: "", bye: ""},
-            {pickNum: 4, name: "", position: "", bye: ""},
-            {pickNum: 5, name: "", position: "", bye: ""},
-            {pickNum: 6, name: "", position: "", bye: ""},
-            {pickNum: 7, name: "", position: "", bye: ""},
-            {pickNum: 8, name: "", position: "", bye: ""},
-            {pickNum: 9, name: "", position: "", bye: ""},
-            {pickNum: 10, name: "", position: "", bye: ""},
-            {pickNum: 11, name: "", position: "", bye: ""},
-            {pickNum: 12, name: "", position: "", bye: ""},
-            {pickNum: 13, name: "", position: "", bye: ""},
-            {pickNum: 14, name: "", position: "", bye: ""},
-            {pickNum: 15, name: "", position: "", bye: ""},
-            {pickNum: 16, name: "", position: "", bye: ""},  
+            {pickNum: 1, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 2, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 3, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 4, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 5, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 6, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 7, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 8, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 9, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 10, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 11, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 12, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 13, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 14, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 15, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},
+            {pickNum: 16, player: {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""}},  
         ]
     }
 
     getPostionCount(pos: string): number{
         var count = 0;
         this.picks.forEach(pick => {
-            if (pos == pick["position"]){
+            if (pos == pick["player"]["position"]){
                 count++;
             }
         });
@@ -43,7 +43,7 @@ export class Drafter{
     getByeCount(week: number): number{
         var count = 0;
         this.picks.forEach(pick => {
-            if (week == pick["bye"]){
+            if (week == pick["player"]["bye"]){
                 count++;
             }
         });

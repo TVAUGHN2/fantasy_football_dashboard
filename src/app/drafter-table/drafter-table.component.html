@@ -20,18 +20,18 @@
 <div class=" ff-striped ff-white ff-centered">
   <table>
     <tr class="ff-blue-gray">
-      <th>Pick</th>
+      <th>Round</th>
       <th>Name</th>
       <th>Position</th>
       <th>Team</th>
       <th>Bye Week</th>
     </tr>
     <tr *ngFor="let pick of drafter.picks">
-      <td>{{ pick.taken }}</td>
-      <td>{{ pick.firstName }} {{ pick.lastName }} </td>
-      <td><i>{{ pick.position }}</i></td>
-      <td><i>{{ pick.teamAbbr }}</i></td>
-      <td><i>{{ pick.bye }}</i></td>
+      <td>{{ pick.pickNum}}</td>
+      <td>{{ pick.player.firstName }} {{ pick.player.lastName }} </td>
+      <td><i>{{ pick.player.position }}</i></td>
+      <td><i>{{ pick.player.teamAbbr }}</i></td>
+      <td><i>{{ pick.player.bye }}</i></td>
     </tr>
   </table>
 </div>

@@ -7,7 +7,6 @@ import { Drafter } from '../data.model';
   styleUrls: ['./drafter-table.component.css']
 })
 export class DrafterTableComponent implements OnInit {
-  
   @Input() drafter: Drafter;
 
   constructor() { 

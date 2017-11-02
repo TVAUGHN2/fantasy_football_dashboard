@@ -322,3 +322,42 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     align-content: right;
     text-align: right;
 }
+
+.my-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 20;
+    top: 0;
+    left: 0;
+}
+
+.my-overlay-inner-container{
+    margin-left: 25%;
+    width: 50%;
+    height: 80%;
+    background: #FFD9A2;
+}
+
+.my-overlay-form{
+    padding: 20px;
+}
+
+.my-overlay-box {
+    background: white;
+    margin: 20px;
+}
+
+.my-overlay-name {
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.btn-margin {
+    margin-top: 15px;
+    margin-right: 5px;
+}
+
+
+

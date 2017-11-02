@@ -9,11 +9,68 @@ import { PlayerRankingsService } from '../player-rankings.service';
 })
 export class DashboardComponent implements OnInit {
   draftersService: DraftersService = new DraftersService(drafterMaps);
+  overlayHidden: boolean = true;
+  totalNumList: number[] = [4,6,8,10,12,14];
+  playerPickList: number[] = [];
+  namesOverlayHidden: boolean = true;
+  model: {} = {numDrafters: 0, profilePick: 0, names: {}};
+
+  submitted = false;
+  onSubmit(type: string) { 
+    if(this.model["numDrafters"] == 0){
+      alert("Please enter the number of people drafting.");
+      this.clear();
+    }
+    else if(this.model["profilePick"] == 0){
+      alert("Please enter your draft pick.");
+      this.clear();
+    }
+    else{ //valid entries
+      this.changeOverlay(type);
+      if(type == "questions"){
+        this.changeOverlay("names"); //unhide names form
+      }
+    }
+      
+  } 
+  onCancel(type: string) { 
+    this.changeOverlay(type); 
+    this.clear();
+
+    if(type == "names"){
+      this.changeOverlay("questions"); //go back to questions form;
+    }
+  }
+
+  clear(){
+    this.playerPickList = [];
+    this.model["numDrafters"] = 0;
+    this.model["profilePick"] = 0;
+    this.model["names"] = {};
+  }
   
   constructor(public playerRankingsService: PlayerRankingsService) { }
 
+  public changeOverlay(type: string) {
+    if(type == "questions"){
+      this.overlayHidden = !this.overlayHidden;
+    }
+    else if(type == "names"){
+      this.namesOverlayHidden = !this.namesOverlayHidden;
+    }
+    
+  }
+
+  public populatePickList(e: any){
+    var n = e;
+    for(var i = 1; i <= n; i++){
+      this.playerPickList.push(i);
+      this.model["names"][i] = "";
+    }
+  }
+
   ngOnInit() {
-    this.draftersService.updateDraftPicks("Travis", this.playerRankingsService.getSelected());
+    this.draftersService.updateDraftPicks(this.playerRankingsService.getSelected());
     
   }
 

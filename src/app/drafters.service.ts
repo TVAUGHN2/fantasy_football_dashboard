@@ -26,12 +26,35 @@ export class DraftersService {
     return this.drafters;
   }
 
-  updateDraftPicks(name: string, picks: {}[]){
-    this.drafters.forEach(drafter => {
-      if(drafter.name == name){
-        drafter.picks = picks;
+  //assumes an ordered list is entered
+  updateDraftPicks(selectedPicks: {}[]){
+    this.updateSnake(selectedPicks);
+    
+    //future cases add other methods (auction drafts for instance
+  }
+
+  updateSnake(selectedPicks: {}[]){
+    var n = this.drafters.length;
+    var round = 0;
+
+    console.log("in updateSnake");
+    for (var pick = 0; pick < selectedPicks.length; pick++){
+      //NEED CODE TO FLIP ISSNAKEBACK
+      if (pick % n == 0) {round++;}
+
+      console.log("round: " + round);
+
+      //odd number rounds are normal
+      if (round % 2 == 1){
+        this.drafters[pick % n].picks[round - 1]["player"] = selectedPicks[pick];
       }
-    });
+
+      //even number rounds are snakeback
+      else{
+        console.log("n - (pick % n): " + (n - (pick % n)));
+        this.drafters[n - 1 - (pick % n)].picks[round - 1]["player"] = selectedPicks[pick];
+      }
+    }
   }
 
   getProfileDrafter(): Drafter{
