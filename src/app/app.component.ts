@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { PlayerRankingsService } from './player-rankings.service'
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,8 @@ export class AppComponent {
   title = 'app works!';
   
 
-  constructor(){
-    
+  constructor(public playerRankingsService: PlayerRankingsService){
+    this.playerRankingsService.search();
   }
 
 }

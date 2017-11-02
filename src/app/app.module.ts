@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Ng2DragDropModule } from 'ng2-drag-drop'; //original use, 
+import { DndModule } from 'ng2-dnd';
+
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -55,8 +58,11 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    Ng2DragDropModule.forRoot(),
+    DndModule.forRoot()
   ],
+  exports:[DndModule],
   providers: [DraftersService, PlayerRankingsService, ByeWeekService],
   bootstrap: [AppComponent]
 })

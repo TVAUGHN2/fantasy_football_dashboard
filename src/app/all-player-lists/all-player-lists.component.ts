@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { PlayerRankingsService } from '../player-rankings.service';
-import { Ranking } from '../data.model'
+import { Ranking, Player} from '../data.model';
+
 
 @Component({
   selector: 'app-all-player-lists',
@@ -9,11 +10,11 @@ import { Ranking } from '../data.model'
 })
 export class AllPlayerListsComponent implements OnInit {
   ranking: Ranking;
+  selectedPlayers: {}[] = [];
+  receivedData: any[] =[];
 
-  constructor(public playerRankingsService: PlayerRankingsService) {
-    this.playerRankingsService.search();
-    this.ranking= new Ranking("",[]);
-  }
+
+  constructor(public playerRankingsService: PlayerRankingsService) {}
 
     /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
@@ -22,10 +23,42 @@ toggle between hiding and showing the dropdown content */
   }
 
   getRanking(type: string){
-    this.ranking = new Ranking(" - " + type, this.playerRankingsService.getResults(type));
+    this.ranking = new Ranking(type, this.playerRankingsService.getResults(type));
   }
 
+  transferDataSuccess($event: any) {
+    this.receivedData.push(JSON.parse($event.dragData)); //data comes over as a single string, so need to parse it for json
+    
+    //remove player from current list and add to selected list
+    var player = this.receivedData[this.receivedData.length-1];
+    console.log("transferData");
+    console.log(player);
+    this.playerRankingsService.selectPlayer(player["rank"], player["position"]);
+
+    //refresh current list
+    this.ranking = new Ranking(this.ranking.type, this.playerRankingsService.getResults(this.ranking.type));
+    this.selectedPlayers = this.playerRankingsService.getSelected();
+  }
+
+  transferBackDataSuccess($event: any) {
+    this.receivedData.push(JSON.parse($event.dragData)); //data comes over as a single string, so need to parse it for json
+    
+    //remove player from current list and add to selected list
+    var player = this.receivedData[this.receivedData.length-1];
+    this.playerRankingsService.unselectPlayer(player["rank"], player["position"]);
+    
+    //refresh current list
+    this.ranking = new Ranking(this.ranking.type, this.playerRankingsService.getResults(this.ranking.type));
+    this.selectedPlayers = this.playerRankingsService.getSelected();
+
+  }
+
+
+
   ngOnInit() {
+    //default list to OVERALL
+    this.ranking = new Ranking("OVERALL", this.playerRankingsService.getResults("OVERALL"));
+    this.selectedPlayers = this.playerRankingsService.getSelected();
   }
 
 }

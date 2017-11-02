@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DraftersService } from '../drafters.service';
+import { PlayerRankingsService } from '../player-rankings.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,11 @@ import { DraftersService } from '../drafters.service';
 export class DashboardComponent implements OnInit {
   draftersService: DraftersService = new DraftersService(drafterMaps);
   
-  constructor() { }
+  constructor(public playerRankingsService: PlayerRankingsService) { }
 
   ngOnInit() {
+    this.draftersService.updateDraftPicks("Travis", this.playerRankingsService.getSelected());
+    
   }
 
   

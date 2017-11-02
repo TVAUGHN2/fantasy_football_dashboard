@@ -20,21 +20,18 @@ export class DraftersService {
       this.drafters.push(tmpDrafter);
     });
 
-    //temporary to test
-    for (var i = 0; i < this.drafters.length; i++){
-      //temporary to test out
-      this.drafters[i].picks.forEach(pick =>{
-        pick["name"] = "Jerrick Mckinnion";
-        pick["bye"] = 6;
-        pick["position"] = "RB";
-      });
-    }
-
-    
   }
 
   getDrafters(){
     return this.drafters;
+  }
+
+  updateDraftPicks(name: string, picks: {}[]){
+    this.drafters.forEach(drafter => {
+      if(drafter.name == name){
+        drafter.picks = picks;
+      }
+    });
   }
 
   getProfileDrafter(): Drafter{

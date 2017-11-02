@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Player } from '../data.model'
+import { PlayerRankingsService } from '../player-rankings.service'
 
 @Component({
   selector: 'app-player-list',
@@ -8,13 +10,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PlayerListComponent implements OnInit {
   @Input() rankings: string[];
   @Input() type: string;
+  receivedData: any[] =[];
 
-  constructor() {}
 
-  ngOnInit() {
+  constructor(public playerRankingsService: PlayerRankingsService) {}
+
+  transferDataSuccess($event: any) {
+    
   }
 
+  ngOnInit() {
 
+  }
 
 
 }

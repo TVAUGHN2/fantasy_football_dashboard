@@ -23,12 +23,14 @@
       <th>Pick</th>
       <th>Name</th>
       <th>Position</th>
+      <th>Team</th>
       <th>Bye Week</th>
     </tr>
     <tr *ngFor="let pick of drafter.picks">
-      <td>{{ pick.pickNum }}</td>
-      <td>{{ pick.name }}</td>
+      <td>{{ pick.taken }}</td>
+      <td>{{ pick.firstName }} {{ pick.lastName }} </td>
       <td><i>{{ pick.position }}</i></td>
+      <td><i>{{ pick.teamAbbr }}</i></td>
       <td><i>{{ pick.bye }}</i></td>
     </tr>
   </table>

@@ -1,6 +1,9 @@
-<nav class="ff-teal ff-container" ><br>
-  
-<div>
+
+
+
+<div class="container" *ngIf="ranking">
+<!--select button and container for player lists-->
+<div class="ff-teal ff-container" dnd-droppable (onDropSuccess)="transferBackDataSuccess($event)">
   <div class="container dropdown">
     
   <button (click)="displayOptions()" class="dropbtn">Select Rankings</button>
@@ -14,18 +17,53 @@
     </div>
     <div>
         <i class="fa fa-users fa-fw"></i>
-        Player List {{ ranking.type }}
+        {{ ranking.type }} Player List 
     </div> 
      
     </div>
-    <div class="list" *ngIf="ranking.type == ''">
-        <app-player-list [rankings]="getRanking('OVERALL')" [type]="ranking.type"></app-player-list>
-    </div>
-    <div class="list">
+
+    <div class="list" >
       <app-player-list [rankings]="ranking.ranking" [type]="ranking.type"></app-player-list>
     </div>
 </div>
-</nav>
+
+
+<!--Selected Players list-->
+<div class="ff-selected" dnd-droppable (onDropSuccess)="transferDataSuccess($event)">
+    <div class="panel-heading">Drop Players Here (Players Drafted: {{selectedPlayers.length}})</div>
+    <!--<div> {{receivedData[0] | json}}</div>-->
+  <div>
+      Drafted Players
+      <table>
+          <tr class="ff-blue-gray">
+            <th>Taken</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Team</th>
+            <th>Bye</th>
+          </tr>
+          <tr *ngFor= "let player of selectedPlayers" class="ff-white" 
+              dnd-draggable [dragEnabled]="true" dragData="{{player | json}}">
+              <td>{{ player.taken }}</td>
+              <td>{{ player.firstName }} {{ player.lastName }}</td>
+              <td><i>{{ player.position }}</i></td>
+              <td><i>{{ player.teamAbbr }}</i></td>
+              <td><i>{{ player.bye }}</i></td>
+          </tr>
+        </table>
+  </div>
+</div>
+
+<!--Drop Boxes-->
+<div class="dnd-container" dnd-droppable (onDropSuccess)="transferBackDataSuccess($event)">
+    <div class="dnd-box" >
+        Drop Players To <b>Remove</b> From Drafted Listed
+    </div>
+</div>
+
+</div>
+
+
 
 <!--
 <div class="container" *ngFor="let ranking of rankings">

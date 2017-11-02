@@ -60,3 +60,21 @@ export class Ranking{
         this.ranking = r;
     }
 }
+
+export class Player{
+    rank: number;
+    firstName: string;
+    lastName: string;
+    position: string;
+    bye: number;
+
+    constructor(rank: number,firstName: string,
+                lastName: string, position: string,
+                bye: number){
+        this.rank= rank;
+        this.firstName= firstName;
+        this.lastName= lastName;
+        this.position= position;
+        this.bye= bye;
+    }
+}

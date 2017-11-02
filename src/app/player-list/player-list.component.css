@@ -11,6 +11,7 @@
 .ff-player-table{
     width:100%;
     border-collapse: collapse;
+    
 }
 
 .ff-player-row{
@@ -33,4 +34,10 @@
     margin-left: 20px;
     width: 250px;
 }
+
+.ff-player-container{
+    overflow-y: auto;
+    height: 675px;
+}
+
 

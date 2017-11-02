@@ -8,11 +8,42 @@
 
 
 
+.dnd-container{
+    padding: 50px;  
+}
 
+.panel-heading{
+    padding:20px;
+    margin-bottom: 10px;
+    border: dashed;
+    border-width: thin;
+    
+
+}
+
+.dnd-box{
+    margin-top: 100px;
+    padding: 100px;
+    border: dashed;
+    border-width: thin;
+    border-color: black;
+    margin-bottom: 50px;
+
+}
+
+.ff-selected{
+    margin: 20px;
+    overflow-y: auto;
+    height: 700px;
+    border: solid;
+    border-width: thin;
+    border-color:#747576;
+    padding:10px;
+}
 
 .ff-container{
     margin-left: 20px;
-    width: 300px;
+ 
 }
 
 .list{
@@ -30,6 +61,8 @@
       cursor: pointer;
       border-radius: 25px;
       margin-left: 200px;
+      margin-top: 20px;
+      margin-right: 5px;
       border-color: white;
       position: relative;
 
