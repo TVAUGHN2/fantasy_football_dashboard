@@ -14,7 +14,7 @@
   <!-- Overlay for userst to answer questions to generate names dashboard -->
   <div class="my-overlay" padding [hidden]="overlayHidden">
     <button full (click)="changeOverlay('questions')">X</button>
-    <div class="my-overlay-inner-container">
+    <div class="my-overlay-questions-container">
       Create Dashboard
       <form class="my-overlay-form" (ngSubmit)="onSubmit('questions')" #createDashboardForm="ngForm">
           <div class="form-group">
@@ -50,7 +50,7 @@
   <!--Overlay for user to enter Drafter's names-->
   <div class="my-overlay" padding [hidden]="namesOverlayHidden">
       <button full (click)="changeOverlay('names')">X</button>
-      <div class="my-overlay-inner-container">
+      <div class="my-overlay-answers-container">
           Enter Names of Drafters
           <form class="my-overlay-form" (ngSubmit)="onSubmit('names')" #createNamesForm="ngForm">
               <div class="form-group" *ngFor="let pick of playerPickList">
@@ -60,8 +60,8 @@
                          [(ngModel)]="model.names[pick]" name="name{{pick}}"
                          #name="ngModel">
               </div>
-              <button type="submit" class="btn btn-success" [disabled]="!createNamesForm.form.valid">Submit</button>
-              <button type="button" class="btn btn-default" (click)="onCancel('names'); createNamesForm.reset()">Cancel</button>
+              <button type="submit" class="btn btn-success btn-margin" [disabled]="!createNamesForm.form.valid">Submit</button>
+              <button type="button" class="btn btn-default btn-margin" (click)="onCancel('names'); createNamesForm.reset()">Cancel</button>
             </form>
       
       </div>

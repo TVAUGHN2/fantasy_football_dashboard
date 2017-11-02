@@ -8,7 +8,6 @@ import { PlayerRankingsService } from '../player-rankings.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  draftersService: DraftersService = new DraftersService(drafterMaps);
   overlayHidden: boolean = true;
   totalNumList: number[] = [4,6,8,10,12,14];
   playerPickList: number[] = [];
@@ -16,6 +15,9 @@ export class DashboardComponent implements OnInit {
   model: {} = {numDrafters: 0, profilePick: 0, names: {}};
 
   submitted = false;
+  
+  constructor(public playerRankingsService: PlayerRankingsService, public draftersService: DraftersService) { }
+
   onSubmit(type: string) { 
     if(this.model["numDrafters"] == 0){
       alert("Please enter the number of people drafting.");
@@ -29,6 +31,10 @@ export class DashboardComponent implements OnInit {
       this.changeOverlay(type);
       if(type == "questions"){
         this.changeOverlay("names"); //unhide names form
+      }
+      //creating dashboard
+      else if (type == "names"){
+        this.draftersService.setDrafters(this.model["names"], this.model["profilePick"]);
       }
     }
       
@@ -49,9 +55,8 @@ export class DashboardComponent implements OnInit {
     this.model["names"] = {};
   }
   
-  constructor(public playerRankingsService: PlayerRankingsService) { }
 
-  public changeOverlay(type: string) {
+  changeOverlay(type: string) {
     if(type == "questions"){
       this.overlayHidden = !this.overlayHidden;
     }
@@ -61,7 +66,9 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  public populatePickList(e: any){
+  populatePickList(e: any){
+    //refresh list
+    this.playerPickList = [];
     var n = e;
     for(var i = 1; i <= n; i++){
       this.playerPickList.push(i);

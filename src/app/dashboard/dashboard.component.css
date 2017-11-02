@@ -333,10 +333,18 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     left: 0;
 }
 
-.my-overlay-inner-container{
+
+
+.my-overlay-answers-container{
     margin-left: 25%;
-    width: 50%;
-    height: 80%;
+    width: 30%;
+    background: #FFD9A2;
+}
+
+.my-overlay-questions-container{
+    padding: 20px;
+    margin-left: 25%;
+    width: 30%;
     background: #FFD9A2;
 }
 
@@ -350,7 +358,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 }
 
 .my-overlay-name {
-    margin-left: 20px;
+    left: 1%;
     margin-bottom: 5px;
 }
 

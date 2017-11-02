@@ -5,19 +5,22 @@ import { Drafter } from './data.model';
 export class DraftersService {
   drafters: Drafter[] = [];
   profileDrafter: Drafter;
-  constructor(drafterMaps: {}[]) {
-    //DRAFTER MAP SHOULD BE A MAP WITH TWO KEYS: "name" & "isProfile"
-    var count = 0;
-    drafterMaps.forEach(drafter => {
-      var tmpDrafter = new Drafter(drafter["name"],++count, drafter["isProfile"]);
+  constructor() {}
 
-      //set profile player
-      if(drafter["isProfile"] == true){
-        this.profileDrafter = tmpDrafter;
+  setDrafters(drafterMaps: {}, profileNum: number){
+    this.drafters = [];
+    for (var draftPick in drafterMaps){
+      var drafter = new Drafter(drafterMaps[draftPick], parseInt(draftPick), false); 
+      if(parseInt(draftPick) == profileNum){
+        drafter["isProfile"] = true;
+        this.profileDrafter = drafter;
       }
+      this.drafters.push(drafter);
+    }
 
-      //load drafter list
-      this.drafters.push(tmpDrafter);
+    //since not guaranteed keys will be in order by draft pick. sort to confirm.
+    this.drafters.sort(function(a, b){
+      return a["draftPosition"] - b["draftPosition"];
     });
 
   }
