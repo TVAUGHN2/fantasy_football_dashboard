@@ -78,4 +78,10 @@ window.onclick = function(event) {
       }
     }
   }
-  }
+}
+
+window.onbeforeunload = function(e) {
+  return 'Dialog text here.';
+
+};
+
