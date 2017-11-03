@@ -1,4 +1,4 @@
-
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 <div class="ff-main" style="margin-top:5px;" *ngIf="draftersService">
   <div class="ff-margin ff-fixed">
     <div class="ff-margin-bottom">
@@ -25,8 +25,7 @@
                     #numDrafters="ngModel" #numDrafters (ngModelChange)="populatePickList($event)">
               <option *ngFor="let num of totalNumList" [value]="num">{{num}}</option>
             </select>
-            <div [hidden]="numDrafters.valid" class="alert alert-danger">
-            </div>
+            <div [hidden]="numDrafters.valid || numDrafters.pristine"></div>
           </div>
 
           <div class="form-group">
@@ -37,8 +36,7 @@
                       #profilePick="ngModel">
                 <option *ngFor="let pick of playerPickList" [value]="pick">{{ pick }}</option>
               </select>
-              <div [hidden]="profilePick.valid" class="alert alert-danger">
-              </div>
+              <div [hidden]="profilePick.valid || profilePick.pristine"></div>
             </div>
      
           <button type="submit" class="btn btn-success btn-margin" [disabled]="!createDashboardForm.form.valid">Submit</button>
@@ -50,12 +48,12 @@
   <!--Overlay for user to enter Drafter's names-->
   <div class="my-overlay" padding [hidden]="namesOverlayHidden">
       <button full (click)="changeOverlay('names')">X</button>
-      <div class="my-overlay-answers-container">
-          Enter Names of Drafters
+      <div class="my-overlay-names-container">
+          <b>Enter Names of Drafters</b>
           <form class="my-overlay-form" (ngSubmit)="onSubmit('names')" #createNamesForm="ngForm">
-              <div class="form-group" *ngFor="let pick of playerPickList">
-                  <label for="name">{{ pick }}. </label>
-                  <input type="text" class="form-control my-overlay-name" id="name{{pick}}"
+              <div  *ngFor="let pick of playerPickList">
+                  <label for="name">Pick {{ pick }} </label>
+                  <input type="text" class="form-control" id="name{{pick}}"
                          required
                          [(ngModel)]="model.names[pick]" name="name{{pick}}"
                          #name="ngModel">
@@ -82,3 +80,4 @@
   </div>
   <hr>
 </div>
+

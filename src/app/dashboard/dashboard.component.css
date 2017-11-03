@@ -333,12 +333,15 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     left: 0;
 }
 
-
-
-.my-overlay-answers-container{
+.my-overlay-names-container{
     margin-left: 25%;
+    padding: 20px;
     width: 30%;
     background: #FFD9A2;
+    overflow-y: auto;
+    height: 500px;
+    border-radius: 5%;
+    
 }
 
 .my-overlay-questions-container{
@@ -346,10 +349,13 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     margin-left: 25%;
     width: 30%;
     background: #FFD9A2;
+    border-radius: 5%;
+
 }
 
 .my-overlay-form{
     padding: 20px;
+
 }
 
 .my-overlay-box {
@@ -368,4 +374,8 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 }
 
 
-
+.chatbox{
+    position: fixed;
+    bottom: 0;
+    left: 75%;
+}

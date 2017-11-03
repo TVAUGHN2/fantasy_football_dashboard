@@ -23,6 +23,7 @@ import { AllPlayerListsComponent } from './all-player-lists/all-player-lists.com
 import { DraftersService } from './drafters.service';
 import { PlayerRankingsService } from './player-rankings.service';
 import { ByeWeekService } from './bye-week.service';
+import { ChatboxComponent } from './chatbox/chatbox.component';
 
 
 
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
     DraftroundsComponent,
     FaqsComponent,
     AllPlayerListsComponent,
+    ChatboxComponent,
   ],
   imports: [
     BrowserModule,
