@@ -1,4 +1,6 @@
-
+.container-box{
+    width: 200px;
+}
 
 .chat
 {
@@ -61,5 +63,4 @@
 }
 
 .box{
-    margin-top: 20px;
 }

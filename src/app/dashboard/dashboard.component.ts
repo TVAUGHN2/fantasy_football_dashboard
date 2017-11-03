@@ -77,8 +77,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.draftersService.updateDraftPicks(this.playerRankingsService.getSelected());
-    
+    //only try and get players if a dashboard has been created
+    if(this.draftersService.drafters.length > 0){
+      this.draftersService.updateDraftPicks(this.playerRankingsService.getSelected());
+    }
   }
 
   

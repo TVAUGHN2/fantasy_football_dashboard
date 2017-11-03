@@ -29,8 +29,19 @@ export class DraftersService {
     return this.drafters;
   }
 
+  clearpicks(){
+    this.drafters.forEach(drafter=>{
+      for(var pick in drafter["picks"]){
+        drafter["picks"][pick]["player"] = {firstName: "", lastName: "", position: "", teamAbbr: "", bye: ""};
+      }
+    });
+  }
+
   //assumes an ordered list is entered
   updateDraftPicks(selectedPicks: {}[]){
+    //clear picks in case any players have been removed
+    this.clearpicks();
+    
     this.updateSnake(selectedPicks);
     
     //future cases add other methods (auction drafts for instance
@@ -46,6 +57,8 @@ export class DraftersService {
       if (pick % n == 0) {round++;}
 
       console.log("round: " + round);
+      console.log("pick: " + pick);
+      console.log("selected length: " + selectedPicks.length);
 
       //odd number rounds are normal
       if (round % 2 == 1){
