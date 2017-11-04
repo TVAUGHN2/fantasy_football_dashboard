@@ -41,6 +41,9 @@ export class PlayerRankingsService {
       });
     }
 
+    console.log("findPlayer: Drew Brees")
+    console.log(this.findPlayer("drew", "brees", "qb", "ATL"));
+
   }
 
   search(): Promise<any>{
@@ -80,9 +83,6 @@ export class PlayerRankingsService {
   
   getResults(position: string, mode: string = "normal"): any[]{
     if(mode == "normal"){
-      //this.getMappings(); //ensure result lists are up-to-date
-      //console.log("filter value: " + filterValue);
-      console.log("position: " + position);
       if(position == "OVERALL"){
         return this.overallResults.slice(0,50);
       }
@@ -93,8 +93,6 @@ export class PlayerRankingsService {
   
         return filteredList.slice(0,50);
       }
-      
-      //return this.resultMappings[filterValue].slice(0,200);
     }
 
     //for future expansion if want to do idp
@@ -110,6 +108,18 @@ export class PlayerRankingsService {
     return this.selectedPlayers;
   }
 
+  clearSelected(){
+    //need to load temporary list and then iterate over temporary list to avoid mutating list
+    //we are iterating over
+    var tmpPlayer = [];
+    this.selectedPlayers.forEach(player => {
+      tmpPlayer.push(player);
+    });
+
+    tmpPlayer.forEach(player => {
+      this.unselectPlayer(player["rank"], player["position"]);
+    });
+  }
 
   selectPlayer(playerRank: number, position: string){
     var overallIndex= 0;
@@ -137,12 +147,6 @@ export class PlayerRankingsService {
     sessionStorage.setItem(CURRENT_SELECTED_PLAYERS, JSON.stringify(this.selectedPlayers));
     sessionStorage.setItem(CURRENT_REMAINING_PLAYERS, JSON.stringify(this.overallResults));
 
-  }
-
-
-
-  clearSelected(){
-      this.selectedPlayers = [];
   }
 
   unselectPlayer(playerRank: number, position: string){
@@ -191,6 +195,103 @@ export class PlayerRankingsService {
     sessionStorage.setItem(CURRENT_REMAINING_PLAYERS, JSON.stringify(this.overallResults));
 
   }
+
+  //returns player, their info, and what list they came from
+  findPlayer(firstName: string, lastName: string, pos: string = "OVERALL", team: string = ""): {}{
+    var players = {};
+
+    var filters = [["firstName", firstName], ["lastName", lastName]]
+    if(pos != "OVERALL"){
+      filters.push(["position", pos]);
+    }
+    if(team != ""){
+      filters.push(["teamAbbr", team]);
+    }
+
+    players["remaining"] = this.findPlayerRemaining(filters);
+    players["selected"] = this.findPlayerSelected(filters);
+
+    console.log("filters");
+    console.log(filters);
+    console.log("results");
+    console.log(players);
+
+    return players;
+
+    /*
+    if (pos == "OVERALL"){
+      if (team == ""){
+        players["remaining"] =
+          this.overallResults.filter(function(result){
+            return (
+              result["lastName"] == lastName 
+              && result["firstName"] == firstName
+            );
+          });
+      }
+      else{ //look for team as well
+        players["remaining"] =
+          this.overallResults.filter(function(result){
+            return (
+              result["lastName"] == lastName 
+              && result["firstName"] == firstName
+              && result["teamAbbr"] == team
+            );
+          });
+      }
+    }
+
+    //search in positional list
+    else{
+      if (team == ""){
+        players["remaining"] =
+          this.overallResults.filter(function(result){
+            return (
+              result["lastName"] == lastName 
+              && result["firstName"] == firstName
+              && result["position"] == pos
+            );
+          });
+      }
+      else{ //look for team as well
+        players["remaining"] =
+          this.overallResults.filter(function(result){
+            return (
+              result["lastName"] == lastName 
+              && result["firstName"] == firstName
+              && result["position"] == pos
+              && result["teamAbbr"] == team
+            );
+          });
+      }
+    }
+    */
+  }
+
+  filterItems(filters, playerList){
+    return playerList.filter(function(val){
+      //iterate through all filters and return false everything unless where all filters match
+      for(var i = 0; i < filters.length; i++){
+        if(val[filters[i][0]].toUpperCase() != filters[i][1].toUpperCase()){    
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  private capitalizeString(s: string){
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  }
+  private findPlayerRemaining(filters: string[][]): {}[]{
+    return this.filterItems(filters, this.overallResults);
+  }
+
+  private findPlayerSelected(filters: string[][]): {}[]{
+    return this.filterItems(filters, this.selectedPlayers);
+  }
+
+  
 
   private addIndivRank(){
     var qbCount = 0; var rbCount = 0; var wrCount = 0;

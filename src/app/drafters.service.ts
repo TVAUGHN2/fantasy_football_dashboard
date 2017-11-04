@@ -64,6 +64,26 @@ export class DraftersService {
     });
   }
 
+  draftedBy(pick: number): string {
+    var n = this.drafters.length;
+    var rounds = 16;
+    var roundPicked = Math.floor(((pick-1) / n)) + 1;
+    console.log("n: " + n);
+    console.log("pick: " + pick);
+    console.log ("floor: " + Math.floor(pick / (n+1)));
+    console.log("round picked: " + roundPicked);
+
+    //if taken in odd round
+    if (roundPicked % 2 == 1){
+      console.log("(pick - 1) % n: " + (pick - 1) % n);
+      return this.drafters[(pick - 1) % n]["name"];
+    }
+    //else even round
+    else{
+      return this.drafters[n - 1  - ((pick - 1) % n)]["name"];
+    }
+  }
+
   //assumes an ordered list is entered
   updateDraftPicks(selectedPicks: {}[]){
     //clear picks in case any players have been removed

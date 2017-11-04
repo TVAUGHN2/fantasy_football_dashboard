@@ -93,50 +93,17 @@ export class ChatMessages{
 
         this.newChatMessages = {
             //"-a":   {cmd: "-a", desc: "Returns advice based on yours and others' picks. Example: -a"},
-            "-f": {cmd: "-f [name]", desc: "Returns draft details of a given name. Example: -f Teddy Bridgewater"},
+            "-f": {cmd: "-f [name]", desc: "Returns draft details of a given name. First and last name are required. Example: -f Teddy Bridgewater"},
             "-h": {cmd: "-h", desc: "Returns all commands and their descriptions. Example: -h"},
             "-ndp": {cmd: "-ndp", desc: "Returns the total number of drafted players. Example -ndp"},
             //"-opp": {cmd: "-opp [name] [week]", desc: "Returns the opponent team name for a given player for a given week. Example: -opp Teddy Bridgewater 5"},
-            "-s": {cmd: "-s [name] [pos] [team]", desc: "Selects player based on input if player is found and unique. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater QB MIN  Example3: -s Teddy Bridgewater MIN" },
-            "-tap": {cmd: "-tap [num] [pos]", desc: "Returns the top available players up to the number specified for the position specified. If no values are entered, [num] defaults to 5 & [pos] defaults to OVERALL.  Example: -tap 10 QB, Example2: -tap QB, Example3: -tap"},
+            "-s": {cmd: "-s [name] [pos] [team]", desc: "Selects player based on input if player is found and unique. First and Last Name are required. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater pos=QB team=MIN  Example3: -s Teddy Bridgewater team=MIN" },
+            "-tap": {cmd: "-tap [num] [pos]", desc: "Returns the top available players up to the number specified for the position specified. If no values are entered, [num] defaults to 5 & [pos] defaults to OVERALL.  Example: -tap num=10 pos=QB, Example2: -tap pos=QB, Example3: -tap"},
             //"-tfap": {cmd: "-tfap [num] [pos]", desc: "Returns the top forecasted available players when you pick next up to the number specified for the position specified. If no values are entered, [num] defaults to 5 & [pos] defaults to OVERALL. Example: -tfap 10 QB, Example2: -tfap QB, Example3: -tfap"},
-            "-u": {cmd: "-u [name] [pos] [team]", desc: "Unselects player based on input if player is found and unique. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater QB MIN  Example3: -s Teddy Bridgewater MIN"},
+            "-u": {cmd: "-u [name] [pos] [team]", desc: "Unselects player based on input if player is found and unique. First and last name are required. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater pos=QB team=MIN  Example3: -s Teddy Bridgewater team=MIN"},
         }
     }
-    help(): string[]{
-        var msgs: string[] = []
-        for(var cmd in this.newChatMessages){
-            msgs.push(this.newChatMessages[cmd]["cmd"] + " | Description: " + this.newChatMessages[cmd]["desc"]);
-        }
-        return msgs;
-    };
-
-    find(name: string){
-        name = name.toUpperCase(); //case-insensitive
-    }
-
-    //number of drafted players
-    ndp(){
-
-    }
-
-    selectPlayer(name: string, pos: string = "", team: string = ""){
-        name = name.toUpperCase(); //case-insensitive
-        pos = pos.toUpperCase(); //case-insensitive
-        team = team.toUpperCase(); //case-insensitive
-    }
-
-    unselectPlayer(name: string, pos: string = "", team: string = ""){
-        name = name.toUpperCase(); //case-insensitive
-        pos = pos.toUpperCase(); //case-insensitive
-        team = team.toUpperCase(); //case-insensitive
-    }
-
-    //top available players
-    tap(strNum: string = "5", pos: string = "OVERALL"){
-        var num = parseInt(strNum);
-        pos = pos.toUpperCase(); //case-insensitive
-    }
+    
 
 }
 

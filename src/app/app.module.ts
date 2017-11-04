@@ -19,11 +19,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DraftroundsComponent } from './draftrounds/draftrounds.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { AllPlayerListsComponent } from './all-player-lists/all-player-lists.component';
+import { ChatboxComponent } from './chatbox/chatbox.component';
+
 
 import { DraftersService } from './drafters.service';
 import { PlayerRankingsService } from './player-rankings.service';
 import { ByeWeekService } from './bye-week.service';
-import { ChatboxComponent } from './chatbox/chatbox.component';
+
 
 
 const appRoutes: Routes = [
@@ -63,7 +65,11 @@ const appRoutes: Routes = [
     DndModule.forRoot()
   ],
   exports:[DndModule],
-  providers: [DraftersService, PlayerRankingsService, ByeWeekService],
+  providers: [
+    DraftersService, 
+    PlayerRankingsService, 
+    ByeWeekService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
