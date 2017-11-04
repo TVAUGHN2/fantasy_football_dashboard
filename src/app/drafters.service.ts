@@ -1,11 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Drafter } from './data.model';
+import { 
+  Drafter, 
+  CURRENT_DRAFTERS, 
+  CURRENT_PROFILE_DRAFTER
+} from './data.model';
 
 @Injectable()
 export class DraftersService {
   drafters: Drafter[] = [];
   profileDrafter: Drafter;
-  constructor() {}
+  constructor() {
+    //check if anything is cached and if so use it to reinstate drafters
+    var draftersJson = JSON.parse(sessionStorage.getItem(CURRENT_DRAFTERS));
+    if(draftersJson != null){
+      draftersJson.forEach(item => {
+        this.drafters.push(new Drafter(item["name"], 
+                                       item["draftPosition"], 
+                                       item["isProfile"], 
+                                       item["picks"]));
+      });
+    }
+
+    //check if anything is cached and if so use it to reinstate profile drafter
+    var profileJSON = JSON.parse(sessionStorage.getItem(CURRENT_PROFILE_DRAFTER));
+    if(profileJSON != null){
+      this.profileDrafter = new Drafter(profileJSON["name"], 
+                                        profileJSON["draftPosition"], 
+                                        profileJSON["isProfile"], 
+                                        profileJSON["picks"])
+    }
+  }
 
   setDrafters(drafterMaps: {}, profileNum: number){
     this.drafters = [];
@@ -23,6 +47,9 @@ export class DraftersService {
       return a["draftPosition"] - b["draftPosition"];
     });
 
+    //save in case of browser refresh
+    sessionStorage.setItem(CURRENT_DRAFTERS, JSON.stringify(this.drafters));
+    sessionStorage.setItem(CURRENT_PROFILE_DRAFTER, JSON.stringify(this.profileDrafter));
   }
 
   getDrafters(){
@@ -41,9 +68,13 @@ export class DraftersService {
   updateDraftPicks(selectedPicks: {}[]){
     //clear picks in case any players have been removed
     this.clearpicks();
-    
+
     this.updateSnake(selectedPicks);
-    
+
+    //save in case of browser refresh
+    sessionStorage.setItem(CURRENT_DRAFTERS, JSON.stringify(this.drafters));
+    sessionStorage.setItem(CURRENT_PROFILE_DRAFTER, JSON.stringify(this.profileDrafter));
+
     //future cases add other methods (auction drafts for instance
   }
 
@@ -51,14 +82,10 @@ export class DraftersService {
     var n = this.drafters.length;
     var round = 0;
 
-    console.log("in updateSnake");
     for (var pick = 0; pick < selectedPicks.length; pick++){
       //NEED CODE TO FLIP ISSNAKEBACK
       if (pick % n == 0) {round++;}
 
-      console.log("round: " + round);
-      console.log("pick: " + pick);
-      console.log("selected length: " + selectedPicks.length);
 
       //odd number rounds are normal
       if (round % 2 == 1){
@@ -67,7 +94,6 @@ export class DraftersService {
 
       //even number rounds are snakeback
       else{
-        console.log("n - (pick % n): " + (n - (pick % n)));
         this.drafters[n - 1 - (pick % n)].picks[round - 1]["player"] = selectedPicks[pick];
       }
     }

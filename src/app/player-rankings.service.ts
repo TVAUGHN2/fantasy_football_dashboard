@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ByeWeekService } from './bye-week.service';
+import { CURRENT_SELECTED_PLAYERS, CURRENT_REMAINING_PLAYERS } from './data.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,9 +13,7 @@ export class PlayerRankingsService {
 
 
   //creating variables for optimization purposes so don't have to keep filtering and slicing everytime
-  modifiableResults: {}[] = []; overallResults: {}[] = []; 
-  wrResults: {}[] = []; rbResults: {}[] = []; qbResults: {}[] = []; 
-  teResults: {}[] = []; defResults: {}[] = []; kResults: {}[] = []; 
+  overallResults: {}[] = []; 
   selectedPlayers: {}[] = [];
   selectedPlayersIndiv: {}[] = []; //to track where to add back
 
@@ -25,12 +24,31 @@ export class PlayerRankingsService {
     
     this.byeWeekService.search(); //ensure this variable is populated
     this.byes = this.byeWeekService.getByeWeeks();
-    //this.search();
+
+    //***Check if player lists are cached and if so re-instate */
+    var json = JSON.parse(sessionStorage.getItem(CURRENT_SELECTED_PLAYERS));
+    if(json != null){
+      json.forEach(item => {
+        this.selectedPlayers.push(item);
+      });
+    }
+
+    var remainingJson = JSON.parse(sessionStorage.getItem(CURRENT_REMAINING_PLAYERS));
+    if(remainingJson != null){
+      this.overallResults = [];
+      remainingJson.forEach(item => {
+        this.overallResults.push(item);
+      });
+    }
+
   }
 
   search(): Promise<any>{
-    this.overallResults = [];
-    //return 1000 player rankings
+    //if already cached then use cached list, otherwise grab a new list
+    if (sessionStorage.getItem(CURRENT_REMAINING_PLAYERS) == null){
+      //grabbing new list
+      this.overallResults = [];
+      //return 1000 player rankings
       let promise = new Promise((resolve, reject) => {
         for (var i = 0; i < 2000; i+=100){
           //creating REST call
@@ -40,7 +58,6 @@ export class PlayerRankingsService {
                   jsonResult.forEach(result => {
                       //add bye week
                       result["bye"] = this.byes[result["teamAbbr"]];
-                      this.modifiableResults.push(result); //load temporary list for positional rankings
                       
                       //create copy of list
                       var newMap = {};
@@ -53,12 +70,12 @@ export class PlayerRankingsService {
                   resolve();
                 }
           )};
-          
       }).then(() => [this.addIndivRank()]); //load positional lists)
-
-      //console.log(this.overallResults[1886]);
       
       return promise;
+    }
+
+    return null;
   }
   
   getResults(position: string, mode: string = "normal"): any[]{
@@ -92,6 +109,8 @@ export class PlayerRankingsService {
   getSelected(){
     return this.selectedPlayers;
   }
+
+
   selectPlayer(playerRank: number, position: string){
     var overallIndex= 0;
     var offset = 0;
@@ -115,34 +134,25 @@ export class PlayerRankingsService {
     //console.log(player);
     this.selectedPlayers.push(player);
 
+    sessionStorage.setItem(CURRENT_SELECTED_PLAYERS, JSON.stringify(this.selectedPlayers));
+    sessionStorage.setItem(CURRENT_REMAINING_PLAYERS, JSON.stringify(this.overallResults));
 
   }
 
 
 
+  clearSelected(){
+      this.selectedPlayers = [];
+  }
+
   unselectPlayer(playerRank: number, position: string){
     var selectedIndex= 0;
     var offset = 0;
-    var oOffset = 0;
-
     var overallIndex = 0;
-    var oStartIndex = 0;
-    var oOffset = 0;
-
-    //safety check in case the player rank is larger than the remaining list 
-    //(example: rank = 300 but list is only 200 players left)
     var startIndex = this.selectedPlayers.length - 1;
-    var oStartIndex = playerRank > this.overallResults.length - 1 ? this.overallResults.length - 1 : playerRank;
-    
-
-
-  
     var player = this.selectedPlayers[startIndex - offset];
-   
-    var overallPlayer = this.overallResults[oStartIndex - oOffset];
+    var taken = 0;
   
-
-
     this.selectedPlayers.forEach(p => {
       if(parseInt(p["rank"]) == playerRank){
         player = p;
@@ -150,38 +160,35 @@ export class PlayerRankingsService {
       }
       
     })
-    
-    console.log("playerrank: " + playerRank);
-    //get the insertion index back into overall list 
-    this.overallResults.forEach(overallResult =>{
-      //compare to 0 so only overwrite it once
-      if(parseInt(overallResult["rank"]) > playerRank && overallIndex == 0){
-        console.log("overallResult Rank: " + overallResult["rank"]);
-        overallIndex = this.overallResults.indexOf(overallResult);
-        console.log("overallIndex: " + overallIndex);
-      }
-    });
 
-    
-
-    
-    
+    //check if edge case (first ranked on remaining list)
+    if(parseInt(this.overallResults[0]["rank"]) < playerRank){
+      //get the insertion index back into overall list 
+      this.overallResults.forEach(overallResult =>{
+        //compare to 0 so only overwrite it once
+        if(parseInt(overallResult["rank"]) > playerRank && overallIndex == 0){
+          overallIndex = this.overallResults.indexOf(overallResult);
+        }
+      });
+    }
 
     //reset because hasn't been taken
     player = this.selectedPlayers.splice(selectedIndex, 1);
     player = player[0];
     player["taken"] = ""; 
 
-    
     //re-rank taken
-    var taken = 0;
-
     this.selectedPlayers.forEach(player => {
       player["taken"] = ++taken + "";
-    })
+    });
 
 
+    //add player
     this.overallResults.splice(overallIndex, 0, player);
+
+    //cache results
+    sessionStorage.setItem(CURRENT_SELECTED_PLAYERS, JSON.stringify(this.selectedPlayers));
+    sessionStorage.setItem(CURRENT_REMAINING_PLAYERS, JSON.stringify(this.overallResults));
 
   }
 
@@ -215,127 +222,5 @@ export class PlayerRankingsService {
     });
 
   }
-
-
-  
-
-  /*   oldSelectPlayer(playerID: string, position: string){
-    var overallIndex= 0;
-    var individualIndex = 0;
-
-    //find player from overall list
-    this.overallResults.forEach(player => {
-      if(player["id"] == playerID){
-        overallIndex = this.overallResults.indexOf(player);
-      }
-    });
-    //find player from individual list
-    this.resultMappings[position].forEach(iPlayer => {
-      if(iPlayer["id"] == playerID){
-        individualIndex = this.resultMappings[position].indexOf(iPlayer);
-      }
-    });
-
-    //add player as selected and remove from overall list
-    var player = this.overallResults.splice(overallIndex, 1);
-    player["taken"] = this.selectedPlayers.length + 1; //since pushing the player to end, should know this
-    this.selectedPlayers.push(player);
-
-    //remove player from positional list
-    this.selectedPlayersIndiv.push(this.resultMappings[position].splice(individualIndex, 1));
-
-  } */
-
-  /*   private loadLists(results: {}[]){
-    var qbCount = 0; var rbCount = 0; var wrCount = 0;
-    var teCount = 0; var defCount = 0; var kCount = 0;
-
-    //reset lists so do not incorrectly append on reload
-    this.wrResults = []; this.rbResults = []; this.qbResults = [];
-    this.teResults = []; this.defResults = []; this.kResults = [];
- 
-    //load lists
-    results.forEach(result => {
-      if(result["position"] == "QB" && result["rank"] > 0){
-
-        this.qbResults.push(result);
-        //this.qbResults[qbCount]["rank"] = qbCount + 1;
-        qbCount++;
-      }
-      else if(result["position"] == "RB" && result["rank"] > 0){
-        this.rbResults.push(result);
-       // this.rbResults[rbCount]["rank"] = rbCount + 1;
-        rbCount++;
-      }
-      else if(result["position"] == "WR" && result["rank"] > 0){
-        this.wrResults.push(result);
-        //this.wrResults[wrCount]["rank"] = wrCount + 1;
-        wrCount++;
-      }
-
-      
-      else if(result["position"] == "TE" && result["rank"] > 0){
-        this.teResults.push(result);
-        //this.teResults[teCount]["rank"] = teCount + 1;
-        teCount++;
-      }
-      else if(result["position"] == "DEF" && result["rank"] > 0){
-        this.defResults.push(result);
-        //this.defResults[defCount]["rank"] = defCount + 1;
-        defCount++;
-      }
-
-      else if(result["position"] == "K" && result["rank"] > 0){
-        this.kResults.push(result);
-        //this.kResults[kCount]["rank"] = kCount + 1;
-        kCount++;
-      }
-      
-
-      this.modifiableResults = []; //reset so that do not keep appending same results to list
-    });
-
-    this.updateIndividualListRankings();
-  } */
-
-/*   private getMappings(){
-    this.resultMappings = {
-      "OVERALL": this.overallResults,
-      "WR": this.wrResults,
-      "RB": this.rbResults,
-      "QB": this.qbResults,
-      "TE": this.teResults,
-      "DEF": this.defResults,
-      "K": this.kResults
-    }
-  }
-
-  private updateRankings(rankings: {}[]){
-    var rank = 1;
-    rankings.forEach(ranking =>{
-      ranking["rank"] = rank++;
-    });
-  }
-
-  private updateIndividualListRankings(){
-    function sortRank(a, b){return a["rank"] - b["rank"]};
-
-    this.qbResults.sort(sortRank);
-    this.wrResults.sort(sortRank);
-    this.rbResults.sort(sortRank);
-    this.teResults.sort(sortRank);
-    this.defResults.sort(sortRank);
-    this.kResults.sort(sortRank);
-
-
-    this.updateRankings(this.qbResults);
-    this.updateRankings(this.wrResults);
-    this.updateRankings(this.rbResults);
-    this.updateRankings(this.teResults);
-    this.updateRankings(this.defResults);
-    this.updateRankings(this.kResults);
-  }
-   */
-
 }
 

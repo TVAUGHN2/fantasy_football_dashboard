@@ -9,15 +9,8 @@ import { PlayerRankingsService } from '../player-rankings.service'
 })
 export class PlayerListComponent implements OnInit {
   @Input() rankings: string[];
-  @Input() type: string;
-  receivedData: any[] =[];
-
-
+  
   constructor(public playerRankingsService: PlayerRankingsService) {}
-
-  transferDataSuccess($event: any) {
-    
-  }
 
   ngOnInit() {
 

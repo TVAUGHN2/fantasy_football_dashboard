@@ -26,8 +26,6 @@ import { ByeWeekService } from './bye-week.service';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 
 
-
-
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent},
   { path: 'playerlist', component: AllPlayerListsComponent},

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { CURRENT_BYE_WEEKS } from './data.model';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,30 +13,32 @@ export class ByeWeekService {
 
   byeWeeks: {} = {};
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) {
+  }
 
   search(): Promise<any>{
-      let promise = new Promise((resolve, reject) => {
-        //hard-coded for 17 weeks for nfl schedule
-        var j = 0;
-        for (var i = 1; i < 18; i++){
-          //creating REST call
-          
-          this.http.get(this.nflByeWeekRootUrl  +  i + this.nflByeWeekEndUrl).toPromise().then(
-              res => { // Success
-                  var week = this.getUrlWeek(res.url);
-                  var jsonResult = res.json()["players"]; //grab array of search results from json
-                  jsonResult.forEach(result => {
-                      //capture team name and bye week
-                      if(result["opponentTeamAbbr"]=="Bye"){
-                        this.byeWeeks[result["teamAbbr"]] = week;
-                      }
-                  });
-                  resolve();
-                }
-        )};
-      });
-      return promise;
+      //only research if nothing is cached
+        let promise = new Promise((resolve, reject) => {
+          //hard-coded for 17 weeks for nfl schedule
+          var j = 0;
+          for (var i = 1; i < 18; i++){
+            //creating REST call
+            
+            this.http.get(this.nflByeWeekRootUrl  +  i + this.nflByeWeekEndUrl).toPromise().then(
+                res => { // Success
+                    var week = this.getUrlWeek(res.url);
+                    var jsonResult = res.json()["players"]; //grab array of search results from json
+                    jsonResult.forEach(result => {
+                        //capture team name and bye week
+                        if(result["opponentTeamAbbr"]=="Bye"){
+                          this.byeWeeks[result["teamAbbr"]] = week;
+                        }
+                    });
+                    resolve();
+                  }
+          )};
+        });
+        return promise;
   }
 
   getByeWeeks(){

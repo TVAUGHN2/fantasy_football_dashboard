@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DraftersService } from '../drafters.service';
 import { PlayerRankingsService } from '../player-rankings.service';
+import { CURRENT_DRAFTERS, CURRENT_REMAINING_PLAYERS, CURRENT_SELECTED_PLAYERS } from '../data.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +35,10 @@ export class DashboardComponent implements OnInit {
       }
       //creating dashboard
       else if (type == "names"){
+        //clear selected list when a new dashboard is create
+        this.playerRankingsService.clearSelected();
+        console.log(this.playerRankingsService.getSelected());
+
         this.draftersService.setDrafters(this.model["names"], this.model["profilePick"]);
       }
     }

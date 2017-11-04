@@ -31,24 +31,42 @@ export class ChatboxComponent implements OnInit{
       //reload messages if empty
       if (this.messagesNotUsed.length == 0){
         this.messagesNotUsed = this.chatMessages.chatMessages.slice(); 
-        console.log("orig chat msg length: " + this.chatMessages.chatMessages.length);
+        //console.log("orig chat msg length: " + this.chatMessages.chatMessages.length);
       }   
 
+      var newMsgs = [];
 
-      //finding new message randomly
-      var randNum = Math.floor(Math.random() * (this.messagesNotUsed.length));
-      var newMsg = this.messagesNotUsed[randNum];
+      if(userMsg == "-h"){
+        newMsgs = this.chatMessages.help();
+      }
 
-      console.log("randNum: " + randNum);
-      console.log("msg length: " + this.messagesNotUsed.length);
-      console.log("new msg: " + newMsg);
-      //remove message
-      this.messagesNotUsed.splice(this.messagesNotUsed.indexOf(newMsg),1) 
 
-      //push bot message
-      this.displayMsgs.push({msg: newMsg, type: "bot", time: new Date(Date.now()).toLocaleString()});
+      else{
+        //finding new message randomly
+        var randNum = Math.floor(Math.random() * (this.messagesNotUsed.length));
+        var newMsg = this.messagesNotUsed[randNum]
+        newMsgs.push("Not a valid command, so you will get one of my random musings.");
+        newMsgs.push(newMsg);
 
-      console.log("num of display msgs: " + this.displayMsgs.length);
+        //remove random message so not used again
+        this.messagesNotUsed.splice(this.messagesNotUsed.indexOf(newMsg),1);
+         
+      }
+
+      //output bot messages
+      newMsgs.forEach(msg=>{
+        this.displayMsgs.push({msg: msg, type: "bot", time: new Date(Date.now()).toLocaleString()});
+      });
+
+      //console.log("randNum: " + randNum);
+      //console.log("msg length: " + this.messagesNotUsed.length);
+      //console.log("new msg: " + newMsg);
+     
+
+      
+
+
+      //console.log("num of display msgs: " + this.displayMsgs.length);
     }
 
     isUser(msg: {}): boolean{
