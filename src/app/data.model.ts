@@ -4,6 +4,7 @@ export const CURRENT_REMAINING_PLAYERS = "CURRENT_REMAINING_PLAYERS"
 export const CURRENT_BYE_WEEKS = "CURRENT_BYE_WEEKS"
 export const CURRENT_PROFILE_DRAFTER = "CURRENT_PROFILE_DRAFTER"
 export const CURRENT_MODEL = "CURRENT_MODEL"
+export const CURRENT_DASHBOARD_NAME = "CURRENT_DASHBOARD_NAME"
 
 //represents each player in the draft
 export class Drafter{
@@ -106,6 +107,16 @@ export class ChatMessages{
     }
     
 
+}
+
+export class UserProfiles{
+    userProfiles: {}[]
+    constructor(){
+        this.userProfiles = [
+            {fname: "Travis", lname: "Vaughn", username: "trvaughn", pwd: "tv"}, 
+            {fname: "Jeremy", lname: "Phillips ", username: "jphil", pwd: "jp"},
+        ]
+    }
 }
 
 

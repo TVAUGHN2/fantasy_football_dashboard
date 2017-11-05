@@ -34,6 +34,8 @@
 .ff-pale-green,.ff-hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}
 .ff-pale-yellow,.ff-hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}
 .ff-pale-blue,.ff-hover-pale-blue:hover{color:#000!important;background-color:#ddffff!important}
+.ff-neutral-gray {color: #ddffff!important;background-color:#578CA9!important}
+
 .ff-text-red,.ff-hover-text-red:hover{color:#f44336!important}
 .ff-text-green,.ff-hover-text-green:hover{color:#4CAF50!important}
 .ff-text-blue,.ff-hover-text-blue:hover{color:#2196F3!important}
@@ -87,5 +89,104 @@
 .ff-feature-block{
     min-height: 50px;
     text-align: center;
+}
+
+
+.ff-new-container {
+    position: relative;
+}
+
+.ff-fixed{
+    position: fixed
+}
+
+.ff-player-margin{
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.ff-player-header{
+    font-size: 12px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #FFD9A2;
+    align-content: center;
+    text-align: center;
+}
+
+
+.ff-player-list{
+    width: 100%;
+    border-style: solid;
+    border-width: thin;
+    border-color: #fff;
+}
+.ff-player-list-field{
+    font-size: 12px;
+    width: 25%;
+    text-align: center;
+}
+
+.ff-player-list-selection{
+    font-size: 12px;
+    width: 75%;
+    border-left-style:solid;
+    border-left-width:thin;
+    border-left-color:#fff;
+    align-content: right;
+    text-align: right;
+}
+
+.my-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 20;
+    top: 0;
+    left: 0;
+}
+
+.my-overlay-names-container{
+    margin-top: 5%;
+    margin-left: 25%;
+    padding: 20px;
+    width: 30%;
+    background: #FFD9A2;
+    overflow-y: auto;
+    height: 500px;
+    border-radius: 5%;
+    
+}
+
+.my-overlay-questions-container{
+    padding: 20px;
+    margin-top: 5%;
+    margin-left: 25%;
+    width: 30%;
+    background: #FFD9A2;
+    border-radius: 5%;
+
+}
+
+.my-overlay-form{
+    padding: 20px;
+
+}
+
+.my-overlay-box {
+    background: white;
+    margin: 20px;
+}
+
+.my-overlay-name {
+    left: 1%;
+    margin-bottom: 5px;
+}
+
+.btn-margin {
+    margin-top: 15px;
+    margin-right: 5px;
 }
 

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { 
   Drafter, 
   CURRENT_DRAFTERS, 
-  CURRENT_PROFILE_DRAFTER
+  CURRENT_PROFILE_DRAFTER,
+  CURRENT_DASHBOARD_NAME
 } from './data.model';
 
 @Injectable()
 export class DraftersService {
+  dashboardName: string = "";
   drafters: Drafter[] = [];
   profileDrafter: Drafter;
   constructor() {
@@ -29,9 +31,14 @@ export class DraftersService {
                                         profileJSON["isProfile"], 
                                         profileJSON["picks"])
     }
+
+    if (sessionStorage.getItem(CURRENT_DASHBOARD_NAME) != null){
+      this.dashboardName = sessionStorage.getItem(CURRENT_DASHBOARD_NAME);
+    }
   }
 
-  setDrafters(drafterMaps: {}, profileNum: number){
+  setDrafters(dashboardName: string, drafterMaps: {}, profileNum: number){
+    this.dashboardName = dashboardName;
     this.drafters = [];
     for (var draftPick in drafterMaps){
       var drafter = new Drafter(drafterMaps[draftPick], parseInt(draftPick), false); 
@@ -48,10 +55,14 @@ export class DraftersService {
     });
 
     //save in case of browser refresh
+    sessionStorage.setItem(CURRENT_DASHBOARD_NAME,this.dashboardName);
     sessionStorage.setItem(CURRENT_DRAFTERS, JSON.stringify(this.drafters));
     sessionStorage.setItem(CURRENT_PROFILE_DRAFTER, JSON.stringify(this.profileDrafter));
   }
 
+  getDashboardName(){
+    return this.dashboardName;
+  }
   getDrafters(){
     return this.drafters;
   }
@@ -92,6 +103,7 @@ export class DraftersService {
     this.updateSnake(selectedPicks);
 
     //save in case of browser refresh
+    sessionStorage.setItem(CURRENT_DASHBOARD_NAME,this.dashboardName);
     sessionStorage.setItem(CURRENT_DRAFTERS, JSON.stringify(this.drafters));
     sessionStorage.setItem(CURRENT_PROFILE_DRAFTER, JSON.stringify(this.profileDrafter));
 

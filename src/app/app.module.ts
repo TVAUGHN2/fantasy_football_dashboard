@@ -1,12 +1,13 @@
+/* MODULES */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule,  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Ng2DragDropModule } from 'ng2-drag-drop'; //original use, 
 import { DndModule } from 'ng2-dnd';
-
 import { RouterModule, Routes } from '@angular/router';
 
+/* COMPONENTS */
 import { AppComponent } from './app.component';
 import { DrafterTableComponent } from './drafter-table/drafter-table.component';
 import { AllDraftTableComponent } from './all-draft-table/all-draft-table.component';
@@ -20,11 +21,13 @@ import { DraftroundsComponent } from './draftrounds/draftrounds.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { AllPlayerListsComponent } from './all-player-lists/all-player-lists.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { LoginComponent } from './login/login.component';
 
-
+/* SERVICES */
 import { DraftersService } from './drafters.service';
 import { PlayerRankingsService } from './player-rankings.service';
 import { ByeWeekService } from './bye-week.service';
+import { AuthService } from './auth.service';
 
 
 
@@ -33,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'playerlist', component: AllPlayerListsComponent},
   { path: 'draftrounds', component: DraftroundsComponent},
   { path: 'faqs', component: FaqsComponent},
+  { path: 'login', component: LoginComponent},
   { path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
@@ -55,6 +59,7 @@ const appRoutes: Routes = [
     FaqsComponent,
     AllPlayerListsComponent,
     ChatboxComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +74,7 @@ const appRoutes: Routes = [
     DraftersService, 
     PlayerRankingsService, 
     ByeWeekService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
