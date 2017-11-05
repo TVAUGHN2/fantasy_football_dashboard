@@ -3,6 +3,7 @@ export const CURRENT_SELECTED_PLAYERS = "CURRENT_SELECTED_PLAYERS"
 export const CURRENT_REMAINING_PLAYERS = "CURRENT_REMAINING_PLAYERS"
 export const CURRENT_BYE_WEEKS = "CURRENT_BYE_WEEKS"
 export const CURRENT_PROFILE_DRAFTER = "CURRENT_PROFILE_DRAFTER"
+export const CURRENT_MODEL = "CURRENT_MODEL"
 
 //represents each player in the draft
 export class Drafter{

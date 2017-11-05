@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DraftersService } from '../drafters.service';
 import { PlayerRankingsService } from '../player-rankings.service';
-import { CURRENT_DRAFTERS, CURRENT_REMAINING_PLAYERS, CURRENT_SELECTED_PLAYERS } from '../data.model';
+import { CURRENT_MODEL } from '../data.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +13,15 @@ export class DashboardComponent implements OnInit {
   totalNumList: number[] = [4,6,8,10,12,14];
   playerPickList: number[] = [];
   namesOverlayHidden: boolean = true;
-  model: {} = {numDrafters: 0, profilePick: 0, names: {}};
+  model: {} = {dashboardName: "", numDrafters: 0, profilePick: 0, names: {}};
 
   submitted = false;
   
-  constructor(public playerRankingsService: PlayerRankingsService, public draftersService: DraftersService) { }
+  constructor(public playerRankingsService: PlayerRankingsService, public draftersService: DraftersService) {
+      var json = JSON.parse(sessionStorage.getItem(CURRENT_MODEL));
+
+      if(json != null)  {this.model = json;}
+   }
 
   onSubmit(type: string) { 
     if(this.model["numDrafters"] == 0){
@@ -40,6 +44,7 @@ export class DashboardComponent implements OnInit {
         console.log(this.playerRankingsService.getSelected());
 
         this.draftersService.setDrafters(this.model["names"], this.model["profilePick"]);
+        sessionStorage.setItem(CURRENT_MODEL, JSON.stringify(this.model));
       }
     }
       
