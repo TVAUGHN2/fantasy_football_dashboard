@@ -28,6 +28,7 @@ import { DraftersService } from './drafters.service';
 import { PlayerRankingsService } from './player-rankings.service';
 import { ByeWeekService } from './bye-week.service';
 import { AuthService } from './auth.service';
+import { DashboardService } from './dashboard.service';
 
 
 
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     DraftersService, 
     PlayerRankingsService, 
     ByeWeekService,
-    AuthService
+    AuthService,
+    DashboardService
   ],
   bootstrap: [AppComponent]
 })

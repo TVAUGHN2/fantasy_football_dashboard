@@ -49,6 +49,7 @@ export class PlayerRankingsService {
   search(): Promise<any>{
     //if already cached then use cached list, otherwise grab a new list
     if (sessionStorage.getItem(CURRENT_REMAINING_PLAYERS) == null){
+      console.log("cache is empty");
       //grabbing new list
       this.overallResults = [];
       //return 1000 player rankings
@@ -121,25 +122,19 @@ export class PlayerRankingsService {
     });
   }
 
-  selectPlayer(playerRank: number, position: string){
+  selectPlayer(gsisPlayerId: string, position: string){
     var overallIndex= 0;
     var offset = 0;
 
-    //safety check in case the player rank is larger than the remaining list 
-    //(example: rank = 300 but list is only 200 players left)
-    var startIndex = playerRank > this.overallResults.length - 1 ? this.overallResults.length - 1 : playerRank;
-
-    var player = this.overallResults[startIndex - offset];
-
     //find player from overall list
     this.overallResults.forEach(player => {
-      if(parseInt(player["rank"]) == playerRank){
+      if(player["gsisPlayerId"] == gsisPlayerId){
         overallIndex = this.overallResults.indexOf(player);
       }
     }); 
 
     //add player as selected and remove from overall list
-    player = this.overallResults.splice(overallIndex, 1)[0];
+    var player = this.overallResults.splice(overallIndex, 1)[0];
     player["taken"] = this.selectedPlayers.length + 1 + ""; //because pushing
     //console.log(player);
     this.selectedPlayers.push(player);
@@ -149,7 +144,7 @@ export class PlayerRankingsService {
 
   }
 
-  unselectPlayer(playerRank: number, position: string){
+  unselectPlayer(gsisPlayerId: string, position: string){
     var selectedIndex= 0;
     var offset = 0;
     var overallIndex = 0;
@@ -158,7 +153,7 @@ export class PlayerRankingsService {
     var taken = 0;
   
     this.selectedPlayers.forEach(p => {
-      if(parseInt(p["rank"]) == playerRank){
+      if(p["gsisPlayerId"] == gsisPlayerId){
         player = p;
         selectedIndex = this.selectedPlayers.indexOf(p);
       }
@@ -166,12 +161,12 @@ export class PlayerRankingsService {
     })
 
     //check if edge case (first ranked on remaining list)
-    if(parseInt(this.overallResults[0]["rank"]) < playerRank){
+    if(parseInt(this.overallResults[0]["rank"]) < this.selectedPlayers[selectedIndex]["rank"]){
       //get the insertion index back into overall list 
       this.overallResults.forEach(overallResult =>{
         //compare to 0 so only overwrite it once
-        if(parseInt(overallResult["rank"]) > playerRank && overallIndex == 0){
-          overallIndex = this.overallResults.indexOf(overallResult);
+        if(parseInt(overallResult["rank"]) > this.selectedPlayers[selectedIndex]["rank"] && overallIndex == 0){
+          return overallIndex = this.overallResults.indexOf(overallResult);
         }
       });
     }
@@ -217,55 +212,6 @@ export class PlayerRankingsService {
     console.log(players);
 
     return players;
-
-    /*
-    if (pos == "OVERALL"){
-      if (team == ""){
-        players["remaining"] =
-          this.overallResults.filter(function(result){
-            return (
-              result["lastName"] == lastName 
-              && result["firstName"] == firstName
-            );
-          });
-      }
-      else{ //look for team as well
-        players["remaining"] =
-          this.overallResults.filter(function(result){
-            return (
-              result["lastName"] == lastName 
-              && result["firstName"] == firstName
-              && result["teamAbbr"] == team
-            );
-          });
-      }
-    }
-
-    //search in positional list
-    else{
-      if (team == ""){
-        players["remaining"] =
-          this.overallResults.filter(function(result){
-            return (
-              result["lastName"] == lastName 
-              && result["firstName"] == firstName
-              && result["position"] == pos
-            );
-          });
-      }
-      else{ //look for team as well
-        players["remaining"] =
-          this.overallResults.filter(function(result){
-            return (
-              result["lastName"] == lastName 
-              && result["firstName"] == firstName
-              && result["position"] == pos
-              && result["teamAbbr"] == team
-            );
-          });
-      }
-    }
-    */
   }
 
   filterItems(filters, playerList){

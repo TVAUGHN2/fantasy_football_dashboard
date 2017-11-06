@@ -6,7 +6,7 @@
 <div class="ff-teal ff-container" dnd-droppable (onDropSuccess)="transferBackDataSuccess($event)">
   <div class="container dropdown">
     
-  <button (click)="displayOptions()" class="dropbtn">Select Rankings</button>
+  
     <div id="myDropdown" class="dropdown-content">
       <a (click)="getRanking('OVERALL')">Overall</a>
       <a (click)="getRanking('QB')">QB</a>
@@ -20,7 +20,8 @@
         <i class="fa fa-users fa-fw"></i>
         {{ ranking.type }} Player List 
     </div> 
-     
+
+     <button (click)="displayOptions()" class="dropbtn">Select Rankings</button>
     </div>
 
     <div class="list" >
@@ -31,28 +32,27 @@
 
 <!--Selected Players list-->
 <div class="ff-selected" dnd-droppable (onDropSuccess)="transferDataSuccess($event)">
+    <div>Drafted Players</div>
     <div class="panel-heading">Drop Players Here (Players Drafted: {{selectedPlayers.length}})</div>
     <!--<div> {{receivedData[0] | json}}</div>-->
-  <div>
-      Drafted Players
-      <table>
-          <tr class="ff-blue-gray">
-            <th>Taken</th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Team</th>
-            <th>Bye</th>
-          </tr>
-          <tr *ngFor= "let player of selectedPlayers" class="ff-white" 
-              dnd-draggable [dragEnabled]="true" dragData="{{player | json}}">
-              <td>{{ player.taken }}</td>
-              <td>{{ player.firstName }} {{ player.lastName }}</td>
-              <td><i>{{ player.position }}</i></td>
-              <td><i>{{ player.teamAbbr }}</i></td>
-              <td><i>{{ player.bye }}</i></td>
-          </tr>
-        </table>
-  </div>
+
+    <table class="ff-selected-table">
+        <tr class="ff-blue-gray ff-selected-row">
+        <th>Taken</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Team</th>
+        <th>Bye</th>
+        </tr>
+        <tr *ngFor= "let player of selectedPlayers" class="ff-selected-row" 
+            dnd-draggable [dragEnabled]="true" dragData="{{player | json}}">
+            <td>{{ player.taken }}</td>
+            <td>{{ player.firstName }} {{ player.lastName }}</td>
+            <td><i>{{ player.position }}</i></td>
+            <td><i>{{ player.teamAbbr }}</i></td>
+            <td><i>{{ player.bye }}</i></td>
+        </tr>
+    </table>
 </div>
 
 <!--Drop Boxes-->

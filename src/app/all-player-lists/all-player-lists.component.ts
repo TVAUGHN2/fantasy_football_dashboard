@@ -33,7 +33,7 @@ toggle between hiding and showing the dropdown content */
     var player = this.receivedData[this.receivedData.length-1];
     console.log("transferData");
     console.log(player);
-    this.playerRankingsService.selectPlayer(player["rank"], player["position"]);
+    this.playerRankingsService.selectPlayer(player["gsisPlayerId"], player["position"]);
 
     //refresh current list
     this.ranking = new Ranking(this.ranking.type, this.playerRankingsService.getResults(this.ranking.type));
@@ -41,11 +41,12 @@ toggle between hiding and showing the dropdown content */
   }
 
   transferBackDataSuccess($event: any) {
+    console.log("in trasfer back data");
     this.receivedData.push(JSON.parse($event.dragData)); //data comes over as a single string, so need to parse it for json
     
     //remove player from current list and add to selected list
     var player = this.receivedData[this.receivedData.length-1];
-    this.playerRankingsService.unselectPlayer(player["rank"], player["position"]);
+    this.playerRankingsService.unselectPlayer(player["gsisPlayerId"], player["position"]);
     
     //refresh current list
     this.ranking = new Ranking(this.ranking.type, this.playerRankingsService.getResults(this.ranking.type));

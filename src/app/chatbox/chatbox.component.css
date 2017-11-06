@@ -9,6 +9,17 @@
     padding: 0;
 }
 
+
+.chatbox{
+    position: fixed;
+    width: 100%;
+    left: 57%;
+    top:0;
+   
+    
+
+}
+
 .chat li
 {
     margin-bottom: 10px;
@@ -31,6 +42,7 @@
 {
     margin: 0;
     color: #777777;
+    
 }
 
 .panel .slidedown .glyphicon, .chat .glyphicon
@@ -38,10 +50,13 @@
     margin-right: 5px;
 }
 
+
 .panel-body
 {
     overflow-y: scroll;
     height: 250px;
+    
+   
 }
 
 ::-webkit-scrollbar-track

@@ -40,6 +40,7 @@ export class DraftersService {
   setDrafters(dashboardName: string, drafterMaps: {}, profileNum: number){
     this.dashboardName = dashboardName;
     this.drafters = [];
+    this.profileDrafter = null;
     for (var draftPick in drafterMaps){
       var drafter = new Drafter(drafterMaps[draftPick], parseInt(draftPick), false); 
       if(parseInt(draftPick) == profileNum){
@@ -54,6 +55,7 @@ export class DraftersService {
       return a["draftPosition"] - b["draftPosition"];
     });
 
+    
     //save in case of browser refresh
     sessionStorage.setItem(CURRENT_DASHBOARD_NAME,this.dashboardName);
     sessionStorage.setItem(CURRENT_DRAFTERS, JSON.stringify(this.drafters));

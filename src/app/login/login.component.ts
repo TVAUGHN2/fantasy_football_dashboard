@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { DraftersService } from '../drafters.service';
+import { PlayerRankingsService } from '../player-rankings.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,9 @@ export class LoginComponent implements OnInit{
 
   model: {} = {username: "", password: ""};
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, 
+              public draftersService: DraftersService, 
+              public playerRankingsService: PlayerRankingsService) {
     this.message = '';
     this.loginTxt = "Login";
     this.forgotTxt = "Forgot Password";
@@ -42,9 +46,8 @@ export class LoginComponent implements OnInit{
     
     location.reload(); //refresh browser (refreshes nav bar name)
 
-    console.log("before overlay value: " + this.loginOverlayHidden);
+    sessionStorage.clear();
     this.changeOverlay();
-    console.log("after overlay value: " + this.loginOverlayHidden);
     return false;
   }
 

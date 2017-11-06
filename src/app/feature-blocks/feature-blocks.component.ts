@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DraftersService } from '../drafters.service';
 import { PlayerRankingsService } from '../player-rankings.service';
-import { CURRENT_MODEL } from '../data.model';
 
 @Component({
   selector: 'app-feature-blocks',
@@ -18,11 +17,9 @@ export class FeatureBlocksComponent implements OnInit {
   totalNumList: number[] = [4,6,8,10,12,14];
   playerPickList: number[] = [];
 
-  constructor(public authService: AuthService, public playerRankingsService: PlayerRankingsService, public draftersService: DraftersService) { 
-    var json = JSON.parse(sessionStorage.getItem(CURRENT_MODEL));
-    
-    if(json != null)  {this.model = json;}
-  }
+  constructor(public authService: AuthService, 
+              public playerRankingsService: PlayerRankingsService, 
+              public draftersService: DraftersService) { }
 
   onSubmit(type: string) { 
     if(this.model["numDrafters"] == 0){
@@ -45,11 +42,10 @@ export class FeatureBlocksComponent implements OnInit {
         console.log(this.playerRankingsService.getSelected());
 
         this.draftersService.setDrafters(this.model["dashboardName"], this.model["names"], this.model["profilePick"]);
-        sessionStorage.setItem(CURRENT_MODEL, JSON.stringify(this.model));
       }
-    }
-      
+    } 
   } 
+
   onCancel(type: string) { 
     this.changeOverlay(type); 
     this.clear();
@@ -68,29 +64,29 @@ export class FeatureBlocksComponent implements OnInit {
   
 
   changeOverlay(type: string) {
-    console.log("view hidden before= " + this.viewDashboardOverlayHidden);
     if(type == "questions"){
       this.createDashboardOverlayHidden = !this.createDashboardOverlayHidden;
     }
     else if(type == "names"){
-
       this.namesOverlayHidden = !this.namesOverlayHidden;
     }
     else if(type == "view"){
-      console.log("in view else if condition");
       this.viewDashboardOverlayHidden = !this.viewDashboardOverlayHidden;
     }
-    console.log("view hidden after= " + this.viewDashboardOverlayHidden);
+
   }
 
   populatePickList(e: any){
     //refresh list
     this.playerPickList = [];
+    this.model["names"] = {};
     var n = e;
+
     for(var i = 1; i <= n; i++){
       this.playerPickList.push(i);
       this.model["names"][i] = "";
     }
+
   }
 
   ngOnInit() {

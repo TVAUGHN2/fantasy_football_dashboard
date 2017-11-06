@@ -3,7 +3,8 @@ import { ChatMessages } from '../data.model';
 
 import { PlayerRankingsService } from '../player-rankings.service';
 import { DraftersService } from '../drafters.service';
-import { } from '../bye-week.service';
+import { ByeWeekService } from '../bye-week.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-chatbox',
@@ -16,7 +17,9 @@ export class ChatboxComponent implements OnInit{
     displayMsgs: {}[];
     isCollapsed: boolean;
 
-    constructor(public playerRankingsService: PlayerRankingsService, public draftersService: DraftersService) {
+    constructor(public playerRankingsService: PlayerRankingsService, 
+                public draftersService: DraftersService, 
+                public authService: AuthService) {
       this.chatMessages = new ChatMessages();
       this.messagesNotUsed = this.chatMessages.chatMessages.slice();
       this.displayMsgs = [];

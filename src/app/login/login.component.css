@@ -10,9 +10,10 @@
 
 .my-overlay-container{
     margin-top: 50px;
+    width: 50%;
+    height: 50%;
     margin-left: 25%;
     padding: 20px;
-    width: 30%;
     background: #FFD9A2;
     overflow-y: auto;
     height: 500px;
@@ -22,7 +23,6 @@
 
 .my-overlay-questions-container{
     padding: 20px;
-    margin-left: 25%;
     width: 30%;
     background: #FFD9A2;
     border-radius: 5%;
@@ -42,4 +42,8 @@
 .my-overlay-name {
     left: 1%;
     margin-bottom: 5px;
+}
+
+.btn-margin{
+    margin: 5px;
 }
