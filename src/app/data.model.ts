@@ -36,14 +36,26 @@ export class Drafter{
         return count;
     }
 
-    getByeCount(week: number): number{
+    getByeCount(): {}{
+        var bye_weeks_count = {}
         var count = 0;
         this.picks.forEach(pick => {
-            if (week == pick["player"]["bye"]){
-                count++;
+            if(bye_weeks_count[pick["player"]["bye"]]){
+                bye_weeks_count[pick["player"]["bye"]] += 1;
+            } 
+            else{
+                bye_weeks_count[pick["player"]["bye"]] = 1;
             }
+            
+            //if (week == pick["player"]["bye"]){
+              //  count++;
+           // }
+            //console.log("bye week player");
+            //console.log(pick["player"]);
         });
-        return count;
+
+        console.log(bye_weeks_count)
+        return bye_weeks_count;
     }
 }
 

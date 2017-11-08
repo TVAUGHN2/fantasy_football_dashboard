@@ -119,18 +119,29 @@ export class DraftersService {
     for (var pick = 0; pick < selectedPicks.length; pick++){
       //NEED CODE TO FLIP ISSNAKEBACK
       if (pick % n == 0) {round++;}
-
-
+      
       //odd number rounds are normal
       if (round % 2 == 1){
         this.drafters[pick % n].picks[round - 1]["player"] = selectedPicks[pick];
+
+        if(this.drafters[pick % n].isProfile){
+          this.profileDrafter = this.drafters[pick % n];
+        }
       }
 
       //even number rounds are snakeback
       else{
         this.drafters[n - 1 - (pick % n)].picks[round - 1]["player"] = selectedPicks[pick];
+
+        if(this.drafters[n - 1 - (pick % n)].isProfile){
+          this.profileDrafter = this.drafters[n - 1 - (pick % n)];
+        }
       }
+
+
     }
+
+
   }
 
   getProfileDrafter(): Drafter{

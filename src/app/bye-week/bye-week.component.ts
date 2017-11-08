@@ -9,15 +9,41 @@ import { Drafter } from '../data.model';
 export class ByeWeekComponent implements OnInit {
   
   @Input() profileDrafter: Drafter;
-  byeWeeks: number[];
+  byeWeeks: {}[] =  
+          [
+            {week:1,count: 0},
+            {week:2, count: 0},
+            {week:3, count: 0},
+            {week:4, count: 0},
+            {week:5, count: 0},
+            {week:6, count: 0},
+            {week:7, count: 0},
+            {week:8, count: 0},
+            {week:9, count: 0},
+            {week:10, count: 0},
+            {week:11, count: 0},
+            {week:12, count: 0},
+            {week:13, count: 0}
+          ]
+            
 
   constructor() {
-    this.profileDrafter = new Drafter("placeholder", 1);
-    this.byeWeeks = [4,5,6,7,8,9,10,11,12,13];
+    //this.profileDrafter = new Drafter("placeholder", 1);
+    //this.populateByeWeekCount();
   }
 
-  populateByeWeekCount(week: number): number{
-    return this.profileDrafter.getByeCount(week);
+  populateByeWeekCount() {
+    var byes = this.profileDrafter.getByeCount();
+    for(var i = 0; i < this.byeWeeks.length; i++){
+      //console.log("bye week: " + this.byeWeeks[i]["week"]);
+      //console.log("bye count: " + byes[this.byeWeeks[i]["week"]])
+      
+      if(byes[this.byeWeeks[i]["week"]]){
+        this.byeWeeks[i]["count"] = byes[this.byeWeeks[i]["week"]];
+      }
+    }
+
+
   }
 
   ngOnInit() {

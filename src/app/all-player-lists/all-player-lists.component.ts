@@ -31,8 +31,8 @@ toggle between hiding and showing the dropdown content */
     
     //remove player from current list and add to selected list
     var player = this.receivedData[this.receivedData.length-1];
-    console.log("transferData");
-    console.log(player);
+    //console.log("transferData");
+    //console.log(player);
     this.playerRankingsService.selectPlayer(player["gsisPlayerId"], player["position"]);
 
     //refresh current list
@@ -41,7 +41,7 @@ toggle between hiding and showing the dropdown content */
   }
 
   transferBackDataSuccess($event: any) {
-    console.log("in trasfer back data");
+    //console.log("in trasfer back data");
     this.receivedData.push(JSON.parse($event.dragData)); //data comes over as a single string, so need to parse it for json
     
     //remove player from current list and add to selected list
