@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DraftersService } from '../drafters.service';
 import { PlayerRankingsService } from '../player-rankings.service';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'app-feature-blocks',
@@ -14,12 +15,64 @@ export class FeatureBlocksComponent implements OnInit {
   viewDashboardOverlayHidden: boolean = true;
 
   model: {} = {dashboardName: "", numDrafters: 0, profilePick: 0, names: {}};
+  viewModel: {} = {dashboardName: ""};
+
   totalNumList: number[] = [4,6,8,10,12,14];
   playerPickList: number[] = [];
 
+  dashboardViews: {}[] = [];
+
   constructor(public authService: AuthService, 
               public playerRankingsService: PlayerRankingsService, 
-              public draftersService: DraftersService) { }
+              public draftersService: DraftersService,
+              public dashboardService: DashboardService) 
+  {
+    var dbs = this.dashboardService.getDashboards(this.authService.getUser()['username']);
+    console.log(dbs);
+    for (var key in dbs){
+      var db = dbs[key];   
+      this.dashboardViews.push({dbName: key, drafterCount: db["drafters"].length, 
+                                profilePick: db["profileDrafter"].draftPosition});
+    }
+  }
+
+
+
+  onSelect(dashboardName){
+    var db = this.dashboardService.getDashboard(this.authService.getUser()['username'], dashboardName)
+    console.log("*** NEW DASHBOARD BEING SELECTED ***")
+    console.log("New Dashboard name:");
+    console.log(dashboardName);
+    console.log("");
+    console.log("Profile Drafter of the dashboard being selected:");
+    console.log(db["profileDrafter"]);
+    console.log("");
+    console.log("Current profile drafter BEFORE making change for dashboard:")
+    console.log(this.draftersService.getProfileDrafter());
+    console.log("");
+
+    //ensure any changes to dashboard are captured
+    this.dashboardService.updateDashboard(this.authService.getUser()['username'], 
+                                       this.draftersService.getDashboardName(), 
+                                       {drafters: this.draftersService.getDrafters(),
+                                        profileDrafter: this.draftersService.getProfileDrafter()});
+
+    //set dashboard to selected dashboard
+    this.draftersService.setDraftersService(dashboardName, db["drafters"], db["profileDrafter"]);
+    
+    //update player rankings based on new dashboard
+    //console.log("getDashboardRankings");
+    //console.log(this.dashboardService.getDashboardRankings(this.authService.getUser()['username'], dashboardName))
+    this.playerRankingsService.setRankings(
+      this.dashboardService.getDashboardRankings(
+        this.authService.getUser()['username'], 
+        dashboardName
+    ));
+
+    
+    this.changeOverlay("view"); 
+
+  }
 
   onSubmit(type: string) { 
     if(this.model["numDrafters"] == 0){
@@ -41,7 +94,16 @@ export class FeatureBlocksComponent implements OnInit {
         this.playerRankingsService.clearSelected();
         console.log(this.playerRankingsService.getSelected());
 
+
+
         this.draftersService.setDrafters(this.model["dashboardName"], this.model["names"], this.model["profilePick"]);
+        this.dashboardService.addDashboard(this.authService.getUser()['username'], 
+                                           this.model["dashboardName"], 
+                                          {drafters: this.draftersService.getDrafters(), 
+                                           profileDrafter: this.draftersService.getProfileDrafter()});
+        this.dashboardViews.push({dbName: this.model["dashboardName"], 
+                                  drafterCount: this.draftersService.getDrafters().length, 
+                                  profilePick: this.draftersService.getProfileDrafter()})
       }
     } 
   } 

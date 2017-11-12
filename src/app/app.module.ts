@@ -29,6 +29,7 @@ import { PlayerRankingsService } from './player-rankings.service';
 import { ByeWeekService } from './bye-week.service';
 import { AuthService } from './auth.service';
 import { DashboardService } from './dashboard.service';
+import { SaveComponent } from './save/save.component';
 
 
 
@@ -39,10 +40,9 @@ const appRoutes: Routes = [
   { path: 'faqs', component: FaqsComponent},
   { path: 'login', component: LoginComponent},
   { path: '',
-    redirectTo: '/dashboard',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
-
 ];
 
 @NgModule({
@@ -61,6 +61,7 @@ const appRoutes: Routes = [
     AllPlayerListsComponent,
     ChatboxComponent,
     LoginComponent,
+    SaveComponent,
   ],
   imports: [
     BrowserModule,

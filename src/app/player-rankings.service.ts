@@ -41,17 +41,18 @@ export class PlayerRankingsService {
       });
     }
 
-    console.log("findPlayer: Drew Brees")
-    console.log(this.findPlayer("drew", "brees", "qb", "ATL"));
+    //console.log("findPlayer: Drew Brees")
+    //console.log(this.findPlayer("drew", "brees", "qb", "ATL"));
 
   }
 
   search(): Promise<any>{
     //if already cached then use cached list, otherwise grab a new list
     if (sessionStorage.getItem(CURRENT_REMAINING_PLAYERS) == null){
-      console.log("cache is empty");
+      //console.log("cache is empty");
       //grabbing new list
       this.overallResults = [];
+      this.selectedPlayers = [];
       //return 1000 player rankings
       let promise = new Promise((resolve, reject) => {
         for (var i = 0; i < 2000; i+=100){
@@ -103,6 +104,10 @@ export class PlayerRankingsService {
 
     return [];
 
+  }
+
+  getRemaining(){
+    return this.overallResults;
   }
 
   getSelected(){
@@ -206,10 +211,10 @@ export class PlayerRankingsService {
     players["remaining"] = this.findPlayerRemaining(filters);
     players["selected"] = this.findPlayerSelected(filters);
 
-    console.log("filters");
-    console.log(filters);
-    console.log("results");
-    console.log(players);
+    //console.log("filters");
+    //console.log(filters);
+    //console.log("results");
+    //console.log(players);
 
     return players;
   }
@@ -224,6 +229,40 @@ export class PlayerRankingsService {
       }
       return true;
     });
+  }
+
+  setRankings(playerRankings: {}){
+    //clear cache
+    //cache results
+    sessionStorage.removeItem(CURRENT_SELECTED_PLAYERS);
+    sessionStorage.removeItem(CURRENT_REMAINING_PLAYERS);
+
+
+    //only replace player rankings if at least one player has been selected
+    if (playerRankings != null && playerRankings["selected"].length > 0){
+      this.selectedPlayers = [];
+      this.overallResults = [];
+
+      //console.log("setRankings: playerRankings");
+      //console.log(playerRankings);
+
+      playerRankings["selected"].forEach(player =>{
+        this.selectedPlayers.push(player);
+      });
+
+      playerRankings["remaining"].forEach(player => {
+        this.overallResults.push(player);
+      });
+    }
+    //otherwise get the most recent players
+    else{
+      //console.log("in setRankings: this.search()")
+      this.search();
+    }
+
+    //cache results
+    sessionStorage.setItem(CURRENT_SELECTED_PLAYERS, JSON.stringify(this.selectedPlayers));
+    sessionStorage.setItem(CURRENT_REMAINING_PLAYERS, JSON.stringify(this.overallResults));
   }
 
   private capitalizeString(s: string){

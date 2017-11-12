@@ -5,6 +5,8 @@ export const CURRENT_BYE_WEEKS = "CURRENT_BYE_WEEKS"
 export const CURRENT_PROFILE_DRAFTER = "CURRENT_PROFILE_DRAFTER"
 export const CURRENT_MODEL = "CURRENT_MODEL"
 export const CURRENT_DASHBOARD_NAME = "CURRENT_DASHBOARD_NAME"
+export const CURRENT_DASHBOARDS = "CURRENT_DASHBOARDS"
+export const CURRENT_DASHBOARDS_PLAYERS = "CURRENT_DASHBOARDS_PLAYERS"
 
 //represents each player in the draft
 export class Drafter{
@@ -54,7 +56,7 @@ export class Drafter{
             //console.log(pick["player"]);
         });
 
-        console.log(bye_weeks_count)
+        //console.log(bye_weeks_count)
         return bye_weeks_count;
     }
 }
@@ -111,10 +113,10 @@ export class ChatMessages{
             "-h": {cmd: "-h", desc: "Returns all commands and their descriptions. Example: -h"},
             "-ndp": {cmd: "-ndp", desc: "Returns the total number of drafted players. Example -ndp"},
             //"-opp": {cmd: "-opp [name] [week]", desc: "Returns the opponent team name for a given player for a given week. Example: -opp Teddy Bridgewater 5"},
-            "-s": {cmd: "-s [name] [pos] [team]", desc: "Selects player based on input if player is found and unique. First and Last Name are required. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater pos=QB team=MIN  Example3: -s Teddy Bridgewater team=MIN" },
-            "-tap": {cmd: "-tap [num] [pos]", desc: "Returns the top available players up to the number specified for the position specified. If no values are entered, [num] defaults to 5 & [pos] defaults to OVERALL.  Example: -tap num=10 pos=QB, Example2: -tap pos=QB, Example3: -tap"},
+            //"-s": {cmd: "-s [name] [pos] [team]", desc: "Selects player based on input if player is found and unique. First and Last Name are required. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater pos=QB team=MIN  Example3: -s Teddy Bridgewater team=MIN" },
+            //"-tap": {cmd: "-tap [num] [pos]", desc: "Returns the top available players up to the number specified for the position specified. If no values are entered, [num] defaults to 5 & [pos] defaults to OVERALL.  Example: -tap num=10 pos=QB, Example2: -tap pos=QB, Example3: -tap"},
             //"-tfap": {cmd: "-tfap [num] [pos]", desc: "Returns the top forecasted available players when you pick next up to the number specified for the position specified. If no values are entered, [num] defaults to 5 & [pos] defaults to OVERALL. Example: -tfap 10 QB, Example2: -tfap QB, Example3: -tfap"},
-            "-u": {cmd: "-u [name] [pos] [team]", desc: "Unselects player based on input if player is found and unique. First and last name are required. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater pos=QB team=MIN  Example3: -s Teddy Bridgewater team=MIN"},
+            //"-u": {cmd: "-u [name] [pos] [team]", desc: "Unselects player based on input if player is found and unique. First and last name are required. [pos] & [team] are optional. Example: -s Teddy Bridgewater  Example2: -s Teddy Bridgewater pos=QB team=MIN  Example3: -s Teddy Bridgewater team=MIN"},
         }
     }
     

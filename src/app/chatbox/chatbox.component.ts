@@ -49,6 +49,9 @@ export class ChatboxComponent implements OnInit{
         newMsgs = this.find(userMsg.slice(3));
       }
 
+      else if(userMsg == "-ndp"){
+        newMsgs = this.ndp();
+      }
 
       else{
         //finding new message randomly
@@ -170,8 +173,10 @@ export class ChatboxComponent implements OnInit{
     }
 
     //number of drafted players
-    ndp(){
-
+    ndp(): string[]{
+      var msgs = [];
+      msgs.push("NDP = " + this.playerRankingsService.getSelected().length)
+      return msgs;
     }
 
     selectPlayer(name: string, pos: string = "", team: string = ""){

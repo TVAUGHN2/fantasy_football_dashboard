@@ -62,6 +62,52 @@ export class DraftersService {
     sessionStorage.setItem(CURRENT_PROFILE_DRAFTER, JSON.stringify(this.profileDrafter));
   }
 
+  setDraftersService(dashboardName: string , drafters: Drafter[], profileDrafter: Drafter){
+    this.dashboardName = dashboardName;
+    this.drafters = [];
+    this.profileDrafter = null;
+
+    //console.log("profile drafter before");
+    //console.log(this.profileDrafter);
+    //set values individually to guarantee Drafter object signature
+    console.log("The current profile drafter BEFORE making the change.  In setDrafterService:");
+    console.log(this.profileDrafter);
+    console.log("");
+    this.profileDrafter = new Drafter(profileDrafter["name"], 
+                                      profileDrafter["draftPosition"], 
+                                      profileDrafter["isProfile"],  
+                                      profileDrafter["picks"])
+    //this.profileDrafter["draftPosition"] = profileDrafter["draftPosition"];
+    //this.profileDrafter["isProfile"] = profileDrafter["isProfile"];
+    //this.profileDrafter["name"] = profileDrafter["name"];
+    //this.profileDrafter.picks = profileDrafter["picks"];
+    console.log("The current profile drafter AFTER making the change");
+    console.log(this.profileDrafter);
+    console.log("");
+
+
+    //console.log("profile drafter after");
+    //console.log(this.profileDrafter);
+
+    //add drafters
+    drafters.forEach(drafter =>{
+      this.drafters.push(new Drafter(drafter["name"], 
+      drafter["draftPosition"], 
+      drafter["isProfile"], 
+      drafter["picks"]))
+
+      console.log("Individual drafters from dashboard being loaded:");
+      console.log(drafter);
+    });
+    console.log("*** END OF setDraftersService ***");
+
+
+    //save in case of browser refresh
+    sessionStorage.setItem(CURRENT_DASHBOARD_NAME,this.dashboardName);
+    sessionStorage.setItem(CURRENT_DRAFTERS, JSON.stringify(this.drafters));
+    sessionStorage.setItem(CURRENT_PROFILE_DRAFTER, JSON.stringify(this.profileDrafter));
+  }
+
   getDashboardName(){
     return this.dashboardName;
   }
@@ -81,14 +127,14 @@ export class DraftersService {
     var n = this.drafters.length;
     var rounds = 16;
     var roundPicked = Math.floor(((pick-1) / n)) + 1;
-    console.log("n: " + n);
-    console.log("pick: " + pick);
-    console.log ("floor: " + Math.floor(pick / (n+1)));
-    console.log("round picked: " + roundPicked);
+    // console.log("n: " + n);
+    // console.log("pick: " + pick);
+    // console.log ("floor: " + Math.floor(pick / (n+1)));
+    // console.log("round picked: " + roundPicked);
 
     //if taken in odd round
     if (roundPicked % 2 == 1){
-      console.log("(pick - 1) % n: " + (pick - 1) % n);
+      //console.log("(pick - 1) % n: " + (pick - 1) % n);
       return this.drafters[(pick - 1) % n]["name"];
     }
     //else even round

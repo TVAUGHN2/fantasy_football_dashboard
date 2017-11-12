@@ -14,7 +14,9 @@ export class AllPlayerListsComponent implements OnInit {
   receivedData: any[] =[];
 
 
-  constructor(public playerRankingsService: PlayerRankingsService) {}
+  constructor(public playerRankingsService: PlayerRankingsService) {
+    
+  }
 
     /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */

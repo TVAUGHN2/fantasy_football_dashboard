@@ -33,6 +33,8 @@ export class ByeWeekComponent implements OnInit {
   }
 
   populateByeWeekCount() {
+    //console.log("profile drafter");
+    //console.log(this.profileDrafter);
     var byes = this.profileDrafter.getByeCount();
     for(var i = 0; i < this.byeWeeks.length; i++){
       //console.log("bye week: " + this.byeWeeks[i]["week"]);

@@ -12,6 +12,7 @@ export class AppComponent {
 
   constructor(public playerRankingsService: PlayerRankingsService){
     this.playerRankingsService.search();
+
   }
 
 }
