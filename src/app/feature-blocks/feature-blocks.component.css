@@ -185,8 +185,15 @@
     margin-bottom: 5px;
 }
 
+
 .btn-margin {
     margin-top: 15px;
     margin-right: 5px;
+}
+
+.db-entry{
+    padding: 20px;
+    align-content: center!important;
+    text-align: center!important;
 }
 

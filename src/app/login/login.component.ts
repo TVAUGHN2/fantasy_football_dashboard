@@ -30,15 +30,22 @@ export class LoginComponent implements OnInit{
   login(): boolean {
     this.message = '';
     if (!this.authService.login(this.model["username"], this.model["password"])) {
+      console.log("in incorrect");
       this.message = 'Incorrect credentials.';
       setTimeout(function() {
         this.message = '';
       }.bind(this), 2500);
     }
 
-    this.changeOverlay();
-    location.reload(); //refresh browser (refreshes nav bar name)
+    else{
+      this.draftersService.clearDashboard();
+      this.changeOverlay();
+      location.reload(); //refresh browser (refreshes nav bar name)
+    }
+    
     return false;
+
+    
   }
 
   logout(): boolean {
@@ -47,6 +54,9 @@ export class LoginComponent implements OnInit{
     location.reload(); //refresh browser (refreshes nav bar name)
 
     sessionStorage.clear();
+    this.draftersService.clearDashboard(); //clear current dashboard
+    this.playerRankingsService.clearSelected(); //clear current selected players
+
     this.changeOverlay();
     return false;
   }

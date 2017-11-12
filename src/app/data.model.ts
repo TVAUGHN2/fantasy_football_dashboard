@@ -129,6 +129,7 @@ export class UserProfiles{
         this.userProfiles = [
             {fname: "Travis", lname: "Vaughn", username: "trvaughn", pwd: "tv"}, 
             {fname: "Jeremy", lname: "Phillips ", username: "jphil", pwd: "jp"},
+            {fname: "Chandler", lname: "Gegg", username: "c-money", pwd: "cg"}
         ]
     }
 }

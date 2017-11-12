@@ -15,7 +15,7 @@ export class FeatureBlocksComponent implements OnInit {
   viewDashboardOverlayHidden: boolean = true;
 
   model: {} = {dashboardName: "", numDrafters: 0, profilePick: 0, names: {}};
-  viewModel: {} = {dashboardName: ""};
+  viewModel: {} = {};
 
   totalNumList: number[] = [4,6,8,10,12,14];
   playerPickList: number[] = [];
@@ -30,9 +30,11 @@ export class FeatureBlocksComponent implements OnInit {
     var dbs = this.dashboardService.getDashboards(this.authService.getUser()['username']);
     console.log(dbs);
     for (var key in dbs){
-      var db = dbs[key];   
-      this.dashboardViews.push({dbName: key, drafterCount: db["drafters"].length, 
-                                profilePick: db["profileDrafter"].draftPosition});
+      if (key != ""){
+        var db = dbs[key];   
+        this.dashboardViews.push({dbName: key, drafterCount: db["drafters"].length, 
+                                  profilePick: db["profileDrafter"].draftPosition});
+      }
     }
   }
 
@@ -72,6 +74,27 @@ export class FeatureBlocksComponent implements OnInit {
     
     this.changeOverlay("view"); 
 
+  }
+
+  onDelete(dashboardName){
+    this.dashboardService.removeDashboard(this.authService.getUser()['username'], dashboardName);
+    
+    /* Remove from view */
+    //find index number to remove from array
+    var i = -1;
+    this.dashboardViews.forEach(dbView => {
+      if(dbView['dbName'] == dashboardName){
+        i = this.dashboardViews.indexOf(dbView);
+        return;
+      }
+    });
+    //remove from array
+    this.dashboardViews.splice(i,1);
+
+    //remove dashboard from current view if db being deleted is same
+    if(dashboardName == this.draftersService.getDashboardName()){
+      this.draftersService.clearDashboard(); 
+    }
   }
 
   onSubmit(type: string) { 

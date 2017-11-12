@@ -1,7 +1,7 @@
 <div class="ff-feature-container" >
   <div class="ff-neutral-gray ff-feature-block ff-margin-bottom" (click)="changeOverlay('view')" *ngIf="authService.getUser()['username']">
     <div class="ff-right">
-      <i class="fa fa-plus-circle ff-xlarge"></i>
+      <i class="fa fa-arrow-circle-right ff-xlarge"></i>
     </div>
     <div>View Dashboards</div>
   </div>
@@ -13,6 +13,7 @@
     <div>Create Dashboard</div>
   </div>
 
+  <!-- ADD IN LATER
   <div class="ff-purple-cream ff-feature-block ff-margin-bottom" >
       <div class="ff-right">
         <i class="fa fa-plus-circle ff-xlarge"></i>
@@ -20,6 +21,7 @@
       <div>Create List</div>
   </div>
 </div>
+-->
 
 <!-- Overlay for users to view dashboard -->
 <div class="my-overlay" padding [hidden]="viewDashboardOverlayHidden">
@@ -27,11 +29,17 @@
       View Dashboard
 
       <div *ngFor="let dashboardView of dashboardViews">
-        {{dashboardView.dbName}}
-        <button type="button" class="btn btn-default btn-margin" (click)="onSelect(dashboardView.dbName)" >View</button>
+        <span class="db-entry">{{dashboardView.dbName}}:</span>
+        
+        <span class="">
+          <button type="button" class="btn btn-success btn-margin" (click)="onSelect(dashboardView.dbName)" >View</button>
+          <button type="button" class="btn btn-danger btn-margin" (click)="onDelete(dashboardView.dbName)" >Delete</button>
+        </span>
       </div>
-      <button type="button" class="btn btn-default btn-margin" (click)="onCancel('view');">Cancel</button>
-      
+      <div>
+          <button type="button" class="btn btn-default btn-margin" (click)="onCancel('view');">Done</button>       
+      </div>
+   
     </div>
     
 </div>

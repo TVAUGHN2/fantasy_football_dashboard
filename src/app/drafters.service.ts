@@ -123,6 +123,16 @@ export class DraftersService {
     });
   }
 
+  clearDashboard(){
+    this.dashboardName = "";
+    this.profileDrafter = new Drafter("", 0);
+    this.drafters = [];
+
+    sessionStorage.removeItem(CURRENT_DASHBOARD_NAME);
+    sessionStorage.removeItem(CURRENT_DRAFTERS);
+    sessionStorage.removeItem(CURRENT_PROFILE_DRAFTER);
+  }
+
   draftedBy(pick: number): string {
     var n = this.drafters.length;
     var rounds = 16;

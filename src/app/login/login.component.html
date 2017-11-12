@@ -27,7 +27,7 @@
                         #name="ngModel">
               </div>
 
-              <button type="submit" class="btn btn-success btn-margin" [routerLink]= "['/dashboard']" (click)="login()" [disabled]="!loginForm.form.valid">Submit</button>
+              <button type="button" class="btn btn-success btn-margin" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
               <button type="button" class="btn btn-default btn-margin" [routerLink]= "['/dashboard']" (click)="onCancel('login'); loginForm.reset()">
                 Cancel
               </button>
@@ -40,13 +40,23 @@
 
           <div *ngIf="authService.getUser()['username']">
               Logged in as <b>{{ authService.getUser()["fname"] }} {{ authService.getUser()["lname"] }}</b>
-              <a href [routerLink]= "['/dashboard']" (click)="logout()">Log out</a>
+
+              <div>
+                    <button type="button" class="btn btn-success btn-margin" [routerLink]= "['/dashboard']" (click)="exit()">
+                        Done
+                     </button>
+
+                     <button type="button" class="btn btn-default btn-margin" [routerLink]= "['/dashboard']" (click)="logout()">
+                        Log out
+                      </button>
+              </div>
+              
           </div>
         </div>
 
          <!-- CREATE PROFILE FORM -->
         <div *ngIf="isCreatingProfile">
-            <h1>Create Profile</h1>
+            <h1>Create Profile (Coming Soon!)</h1>
         
           <form class="my-overlay-form" (ngSubmit)="create()" #createProfileForm="ngForm">
             <div>

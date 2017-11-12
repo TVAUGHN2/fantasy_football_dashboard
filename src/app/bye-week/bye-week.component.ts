@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Drafter } from '../data.model';
 
 @Component({
@@ -27,7 +27,7 @@ export class ByeWeekComponent implements OnInit {
           ]
             
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     //this.profileDrafter = new Drafter("placeholder", 1);
     //this.populateByeWeekCount();
   }
@@ -49,6 +49,11 @@ export class ByeWeekComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    //this.message = 'all done loading :)'
+    this.cdr.detectChanges();
   }
 
 }
