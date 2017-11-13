@@ -42,7 +42,8 @@
               Logged in as <b>{{ authService.getUser()["fname"] }} {{ authService.getUser()["lname"] }}</b>
 
               <div>
-                    <button type="button" class="btn btn-success btn-margin" [routerLink]= "['/dashboard']" (click)="exit()">
+                    <button type="button" class="btn btn-success btn-margin" [routerLink]= "['/dashboard']" 
+                        (click)="exit(); ga('send', { hitType: 'event', eventCategory: 'csc436', eventAction: 'login', eventLabel: 'authorized'});">
                         Done
                      </button>
 
